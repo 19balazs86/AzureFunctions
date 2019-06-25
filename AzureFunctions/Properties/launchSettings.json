@@ -2,7 +2,7 @@
   "profiles": {
     "RunMe": {
       "commandName": "Project",
-      "commandLineArgs": ""
+      "commandLineArgs": "host start --pause-on-error --port 5000"
     }
   }
 }
