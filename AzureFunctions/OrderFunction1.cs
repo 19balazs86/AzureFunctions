@@ -1,5 +1,7 @@
+using System;
 using System.IO;
 using System.Threading.Tasks;
+using AzureFunctions.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -11,22 +13,44 @@ namespace AzureFunctions
 {
   public static class OrderFunction1
   {
+    private static readonly JsonSerializer _jsonSerializer = JsonSerializer.Create();
+
+    /// <summary>
+    /// HttpTrigger -> Write into blob storage.
+    /// </summary>
     [FunctionName("Order")]
     public static async Task<IActionResult> Run(
-      [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
+      [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest request,
+      //[Blob("orders/{rand-guid}.json")] TextWriter textWriter,
+      Binder binder,
       ILogger log)
     {
-      log.LogInformation("C# HTTP trigger function processed a request.");
+      Order order;
 
-      string name = req.Query["name"];
+      try
+      {
+        order = request.Body.Deserialize<Order>();
+      }
+      catch (Exception ex)
+      {
+        log.LogError(ex, "Failed to deserialize the order.");
 
-      string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-      dynamic data = JsonConvert.DeserializeObject(requestBody);
-      name = name ?? data?.name;
+        return new BadRequestObjectResult("The order is invalid.");
+      }
 
-      return name != null
-          ? (ActionResult)new OkObjectResult($"Hello, {name}")
-          : new BadRequestObjectResult("Please pass a name on the query string or in the request body");
+      order.Id   = Guid.NewGuid();
+      order.Date = DateTime.UtcNow;
+
+      log.LogInformation("Order is requested with id: {orderId}.", order.Id);
+
+      string fileName = $"orders/{order.Id}.json";
+
+      // Create binding imperatively.
+      using (var textWriter = await binder.BindAsync<TextWriter>(new BlobAttribute(fileName, FileAccess.Write)))
+      using (var jsonWriter = new JsonTextWriter(textWriter))
+        _jsonSerializer.Serialize(jsonWriter, order);
+
+      return new OkObjectResult(new { Message = "Order accepted.", order.Id });
     }
   }
 }
