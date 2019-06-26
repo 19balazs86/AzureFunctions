@@ -36,8 +36,11 @@ namespace AzureFunctions
       }
       catch (Exception ex)
       {
-        return Task.FromResult(new HttpRequestBody<T>(false, default, new ValidationResult(ex.Message)));
+        return Task.FromResult(new HttpRequestBody<T>(ex.Message));
       }
+
+      if (value is null)
+        return Task.FromResult(new HttpRequestBody<T>("Request body can not be empty."));
 
       var validationResults = new List<ValidationResult>();
 

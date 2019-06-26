@@ -18,10 +18,16 @@ namespace AzureFunctions.Models
       ValidationResults = validationResults ?? Enumerable.Empty<ValidationResult>();
     }
 
-    public HttpRequestBody(bool isValid, T value, ValidationResult validationResult)
-      : this(isValid, value, new[] { validationResult })
+    public HttpRequestBody(bool isValid, T value, string errorMessage)
+      : this(isValid, value, new[] { new ValidationResult(errorMessage) })
     {
       
+    }
+
+    public HttpRequestBody(string errorMessage)
+      : this(false, null, errorMessage)
+    {
+
     }
 
     public string ValidationString() => string.Join(", ", ValidationResults.Select(v => v.ErrorMessage));
