@@ -25,30 +25,19 @@ namespace AzureFunctions
       Binder binder,
       ILogger log)
     {
-      OrderRequest orderRequest;
+      HttpRequestBody<OrderRequest> requestBody = await request.GetBodyAsync<OrderRequest>();
 
-      try
-      {
-        orderRequest = request.Body.Deserialize<OrderRequest>();
-      }
-      catch (Exception ex)
-      {
-        log.LogError(ex, "Failed to deserialize the order.");
-
-        return new BadRequestObjectResult("The order is invalid.");
-      }
+      if (!requestBody.IsValid)
+        return new BadRequestObjectResult($"Model is invalid: {requestBody.ValidationString()}");
 
       var order = new Order
       {
         Id          = Guid.NewGuid(),
         Date        = DateTime.UtcNow,
-        UserId      = orderRequest.UserId,
-        ProductName = orderRequest.ProductName,
-        Quantity    = orderRequest.Quantity
+        UserId      = requestBody.Value.UserId,
+        ProductName = requestBody.Value.ProductName,
+        Quantity    = requestBody.Value.Quantity
       };
-
-      order.Id   = Guid.NewGuid();
-      order.Date = DateTime.UtcNow;
 
       log.LogInformation("Order is requested with id: {orderId}.", order.Id);
 

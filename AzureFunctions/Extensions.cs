@@ -1,4 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Threading.Tasks;
+using AzureFunctions.Models;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
 namespace AzureFunctions
@@ -12,6 +18,26 @@ namespace AzureFunctions
       using (var streamReader   = new StreamReader(stream))
       using (var jsonTextReader = new JsonTextReader(streamReader))
         return _jsonSerializer.Deserialize<T>(jsonTextReader);
+    }
+
+    public static Task<HttpRequestBody<T>> GetBodyAsync<T>(this HttpRequest request) where T : class
+    {
+      T value;
+
+      try
+      {
+        value = request.Body.Deserialize<T>();
+      }
+      catch (Exception ex)
+      {
+        return Task.FromResult(new HttpRequestBody<T>(false, default, new ValidationResult(ex.Message)));
+      }
+
+      var validationResults = new List<ValidationResult>();
+
+      bool isValid = Validator.TryValidateObject(value, new ValidationContext(value, null, null), validationResults, true);
+
+      return Task.FromResult(new HttpRequestBody<T>(isValid, value, validationResults));
     }
   }
 }
