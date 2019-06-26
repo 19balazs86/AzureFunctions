@@ -13,7 +13,7 @@ namespace AzureFunctions
   {
     private static readonly JsonSerializer _jsonSerializer = JsonSerializer.Create();
 
-    public static T Deserialize<T>(this Stream stream)
+    public static T ReadAs<T>(this Stream stream)
     {
       using (var streamReader   = new StreamReader(stream))
       using (var jsonTextReader = new JsonTextReader(streamReader))
@@ -32,7 +32,7 @@ namespace AzureFunctions
 
       try
       {
-        value = request.Body.Deserialize<T>();
+        value = request.Body.ReadAs<T>();
       }
       catch (Exception ex)
       {
