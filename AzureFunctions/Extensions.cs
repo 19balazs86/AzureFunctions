@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace AzureFunctions
 {
-  public static class StreamExtensions
+  public static class Extensions
   {
     private static readonly JsonSerializer _jsonSerializer = JsonSerializer.Create();
 

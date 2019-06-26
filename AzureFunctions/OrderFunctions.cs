@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace AzureFunctions
 {
-  public static class OrderFunction1
+  public static class OrderFunctions
   {
     private static readonly JsonSerializer _jsonSerializer = JsonSerializer.Create();
 
