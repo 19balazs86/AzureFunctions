@@ -20,6 +20,12 @@ namespace AzureFunctions
         return _jsonSerializer.Deserialize<T>(jsonTextReader);
     }
 
+    public static void WriteJson(this TextWriter textWriter, object value)
+    {
+      using (var jsonWriter = new JsonTextWriter(textWriter))
+        _jsonSerializer.Serialize(jsonWriter, value);
+    }
+
     public static Task<HttpRequestBody<T>> GetBodyAsync<T>(this HttpRequest request) where T : class
     {
       T value;

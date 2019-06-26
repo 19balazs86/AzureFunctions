@@ -7,14 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace AzureFunctions
 {
   public static class OrderFunctions
   {
-    private static readonly JsonSerializer _jsonSerializer = JsonSerializer.Create();
-
     /// <summary>
     /// HttpTrigger -> Write into blob storage.
     /// </summary>
@@ -45,8 +42,7 @@ namespace AzureFunctions
 
       // Create binding imperatively.
       using (var textWriter = await binder.BindAsync<TextWriter>(new BlobAttribute(fileName, FileAccess.Write)))
-      using (var jsonWriter = new JsonTextWriter(textWriter))
-        _jsonSerializer.Serialize(jsonWriter, order);
+        textWriter.WriteJson(order);
 
       return new OkObjectResult(new { Message = "Order accepted.", order.Id });
     }
