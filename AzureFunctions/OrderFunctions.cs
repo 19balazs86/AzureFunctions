@@ -25,11 +25,11 @@ namespace AzureFunctions
       Binder binder,
       ILogger log)
     {
-      Order order;
+      OrderRequest orderRequest;
 
       try
       {
-        order = request.Body.Deserialize<Order>();
+        orderRequest = request.Body.Deserialize<OrderRequest>();
       }
       catch (Exception ex)
       {
@@ -37,6 +37,15 @@ namespace AzureFunctions
 
         return new BadRequestObjectResult("The order is invalid.");
       }
+
+      var order = new Order
+      {
+        Id          = Guid.NewGuid(),
+        Date        = DateTime.UtcNow,
+        UserId      = orderRequest.UserId,
+        ProductName = orderRequest.ProductName,
+        Quantity    = orderRequest.Quantity
+      };
 
       order.Id   = Guid.NewGuid();
       order.Date = DateTime.UtcNow;
