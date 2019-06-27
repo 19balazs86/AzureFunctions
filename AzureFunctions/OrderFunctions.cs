@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using AzureFunctions.Models;
 using Microsoft.AspNetCore.Http;
@@ -13,12 +14,37 @@ namespace AzureFunctions
 {
   public static class OrderFunctions
   {
+    private static Random _random = new Random();
+
+    private static readonly HttpClient _httpClient
+      = new HttpClient { BaseAddress = new Uri("http://localhost:5000") };
+
+    /// <summary>
+    /// TimerTrigger -> HttpTrigger
+    /// </summary>
+    [FunctionName("TimerFunction")]
+    public static async Task TimerFunction(
+      [TimerTrigger("*/5 * * * * *")] TimerInfo myTimer, ILogger log)
+    {
+      if (myTimer.IsPastDue)
+        log.LogInformation("Timer is running late!");
+
+      var orderRequest = new OrderRequest
+      {
+        UserId      = _random.Next(1, 10),
+        Quantity    = _random.Next(1, 10),
+        ProductName = $"Product #{_random.Next(1, 10)}"
+      };
+
+      await _httpClient.PostAsJsonAsync("api/order", orderRequest);
+    }
+
     /// <summary>
     /// HttpTrigger -> Write into blob storage.
     /// </summary>
-    [FunctionName("Order")]
+    [FunctionName("HttpFunction")]
     public static async Task<IActionResult> HttpFunction(
-      [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest request,
+      [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "order")] HttpRequest request,
       //[Blob("orders/{rand-guid}.json")] TextWriter textWriter,
       Binder binder,
       ILogger log)
@@ -78,8 +104,8 @@ namespace AzureFunctions
       return order;
     }
 
-    [FunctionName("QueueTrigger")]
-    public static void QueueTrigger( // Async methods cannot have ref, in or out parameters.
+    [FunctionName("QueueFunction")]
+    public static void QueueFunction( // Async methods cannot have ref, in or out parameters.
       [QueueTrigger("orders")] Order order,
       //[Table("orders")] CloudTable orderTable,
       [Table("orders")] out OrderTableEntity tableEntity,
