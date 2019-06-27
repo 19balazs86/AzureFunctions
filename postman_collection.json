@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "b98bc656-ac89-4d4d-916a-7b3fc58ec737",
+		"name": "AzureFunctions",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"userId\": 1,\r\n\t\"productName\": \"Product name\",\r\n\t\"quantity\": 1\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Order"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

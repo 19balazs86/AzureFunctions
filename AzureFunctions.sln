@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFunctions", "AzureFunc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D48562BA-9AAF-4BE1-AA86-57D5DB2AD0D9}"
 	ProjectSection(SolutionItems) = preProject
+		postman_collection.json = postman_collection.json
 		README.md = README.md
 	EndProjectSection
 EndProject
