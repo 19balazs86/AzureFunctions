@@ -77,5 +77,20 @@ namespace AzureFunctions
 
       return order;
     }
+
+    [FunctionName("QueueTrigger")]
+    public static void QueueTrigger( // Async methods cannot have ref, in or out parameters.
+      [QueueTrigger("orders")] Order order,
+      //[Table("orders")] CloudTable orderTable,
+      [Table("orders")] out OrderTableEntity tableEntity,
+      ILogger log)
+    {
+      tableEntity = new OrderTableEntity(order);
+
+      log.LogInformation($"Queue trigger function processed the order({order.Id}).");
+
+      //TableOperation operation = TableOperation.InsertOrReplace(tableEntity);
+      //TableResult result       = await orderTable.ExecuteAsync(operation);
+    }
   }
 }
