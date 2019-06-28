@@ -5,7 +5,7 @@ namespace AzureFunctions.Models
   public class OrderRequest
   {
     [Range(1, int.MaxValue)]
-    public int UserId { get; set; }
+    public int CustomerId { get; set; }
 
     [StringLength(100, MinimumLength = 1)]
     public string ProductName { get; set; }

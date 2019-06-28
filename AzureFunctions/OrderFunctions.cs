@@ -14,7 +14,7 @@ namespace AzureFunctions
 {
   public static class OrderFunctions
   {
-    private static Random _random = new Random();
+    private static readonly Random _random = new Random();
 
     private static readonly HttpClient _httpClient
       = new HttpClient { BaseAddress = new Uri("http://localhost:5000") };
@@ -31,12 +31,12 @@ namespace AzureFunctions
 
       var orderRequest = new OrderRequest
       {
-        UserId      = _random.Next(1, 10),
+        CustomerId  = _random.Next(1, 10),
         Quantity    = _random.Next(1, 10),
         ProductName = $"Product #{_random.Next(1, 10)}"
       };
 
-      await _httpClient.PostAsJsonAsync("api/order", orderRequest);
+      await _httpClient.PostAsJsonAsync("api/PlaceOrder", orderRequest);
     }
 
     /// <summary>
@@ -44,7 +44,7 @@ namespace AzureFunctions
     /// </summary>
     [FunctionName("HttpFunction")]
     public static async Task<IActionResult> HttpFunction(
-      [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "order")] HttpRequest request,
+      [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "PlaceOrder")] HttpRequest request,
       //[Blob("orders/{rand-guid}.json")] TextWriter textWriter,
       Binder binder,
       ILogger log)
@@ -58,7 +58,7 @@ namespace AzureFunctions
       {
         Id          = Guid.NewGuid(),
         Date        = DateTime.UtcNow,
-        UserId      = requestBody.Value.UserId,
+        CustomerId  = requestBody.Value.CustomerId,
         ProductName = requestBody.Value.ProductName,
         Quantity    = requestBody.Value.Quantity
       };
@@ -86,15 +86,13 @@ namespace AzureFunctions
       //[Queue("orders")] IAsyncCollector<Order> ordersQueue,
       ILogger log)
     {
+      log.LogInformation($"Blob trigger function processing the file: '{fileName}'.");
+
       Order order;
 
       using (Stream stream = await myBlob.OpenReadAsync())
-      {
-        log.LogInformation($"Blob trigger function processing the file: '{fileName}'.");
-
         order = stream.ReadAs<Order>();
-      }
-      
+
       // If the file is processed but is not deleted, next time it won't be processed again.
       // The blob container has information about the processed messages: azure-webjobs-hosts/blobreceipts
       await myBlob.DeleteAsync();
@@ -111,9 +109,9 @@ namespace AzureFunctions
       [Table("orders")] out OrderTableEntity tableEntity,
       ILogger log)
     {
-      tableEntity = new OrderTableEntity(order);
-
       log.LogInformation($"Queue trigger function processed the order({order.Id}).");
+
+      tableEntity = new OrderTableEntity(order);
 
       //TableOperation operation = TableOperation.InsertOrReplace(tableEntity);
       //TableResult result       = await orderTable.ExecuteAsync(operation);

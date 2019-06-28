@@ -5,7 +5,7 @@ namespace AzureFunctions.Models
 {
   public class OrderTableEntity : TableEntity
   {
-    public int UserId { get; set; }
+    public int CustomerId { get; set; }
     public DateTime Date { get; set; }
     public string ProductName { get; set; }
     public int Quantity { get; set; }
@@ -17,7 +17,7 @@ namespace AzureFunctions.Models
       PartitionKey = "order";
       RowKey       = order.Id.ToString();
 
-      UserId      = order.UserId;
+      CustomerId  = order.CustomerId;
       Date        = order.Date;
       ProductName = order.ProductName;
       Quantity    = order.Quantity;

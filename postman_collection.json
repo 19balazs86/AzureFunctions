@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Order",
+			"name": "PlaceOrder",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -18,10 +18,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"userId\": 1,\r\n\t\"productName\": \"Product name\",\r\n\t\"quantity\": 1\r\n}"
+					"raw": "{\r\n\t\"customerId\": 1,\r\n\t\"productName\": \"Product name\",\r\n\t\"quantity\": 1\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/Order",
+					"raw": "http://localhost:5000/api/PlaceOrder",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -29,7 +29,7 @@
 					"port": "5000",
 					"path": [
 						"api",
-						"Order"
+						"PlaceOrder"
 					]
 				}
 			},
