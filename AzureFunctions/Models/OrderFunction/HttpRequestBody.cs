@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace AzureFunctions.Models
+namespace AzureFunctions.Models.OrderFunction
 {
   public class HttpRequestBody<T> where T : class
   {

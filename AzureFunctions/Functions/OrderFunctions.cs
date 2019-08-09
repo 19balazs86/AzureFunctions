@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using AzureFunctions.Models;
+using AzureFunctions.Models.OrderFunction;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -10,7 +10,7 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace AzureFunctions
+namespace AzureFunctions.Functions
 {
   public static class OrderFunctions
   {
@@ -36,7 +36,7 @@ namespace AzureFunctions
         ProductName = $"Product #{_random.Next(1, 10)}"
       };
 
-      await _httpClient.PostAsJsonAsync("api/PlaceOrder", orderRequest);
+      _ = await _httpClient.PostAsJsonAsync("api/PlaceOrder", orderRequest);
     }
 
     /// <summary>

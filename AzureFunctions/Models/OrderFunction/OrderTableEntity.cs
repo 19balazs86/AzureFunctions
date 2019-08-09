@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.WindowsAzure.Storage.Table;
 
-namespace AzureFunctions.Models
+namespace AzureFunctions.Models.OrderFunction
 {
   public class OrderTableEntity : TableEntity
   {
