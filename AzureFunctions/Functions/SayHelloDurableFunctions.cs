@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -11,6 +12,8 @@ namespace AzureFunctions.Functions
 {
   public static class SayHelloDurableFunctions
   {
+    private static readonly Random _random = new Random();
+
     [FunctionName(nameof(SayHello_Client))]
     public static async Task<HttpResponseMessage> SayHello_Client(
       [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestMessage request,
@@ -39,8 +42,13 @@ namespace AzureFunctions.Functions
       var request = context.GetInput<SayHelloRequest>();
       var tasks   = new List<Task<string>>();
 
+      //foreach (string city in request.CityNames)
+      //  tasks.Add(context.CallActivityAsync<string>(nameof(SayHello_Activity), city));
+
+      var retryOptions = new RetryOptions(TimeSpan.FromSeconds(2), 3);
+
       foreach (string city in request.CityNames)
-        tasks.Add(context.CallActivityAsync<string>(nameof(SayHello_Activity), city));
+        tasks.Add(context.CallActivityWithRetryAsync<string>(nameof(SayHello_Activity), retryOptions, city));
 
       await Task.WhenAll(tasks);
 
@@ -52,11 +60,23 @@ namespace AzureFunctions.Functions
       [ActivityTrigger] string city,
       ILogger log)
     {
-      log.LogInformation($"Wait and saying hello to {city}.");
+      try
+      {
+        if (_random.NextDouble() < 0.15)
+          throw new Exception($"Random exception for {city}.");
 
-      await Task.Delay(5000);
+        log.LogInformation($"Wait and saying hello to {city}.");
 
-      return $"Hello {city}!";
+        await Task.Delay(3000);
+
+        return $"Hello {city}!";
+      }
+      catch (Exception ex)
+      {
+        log.LogError(ex, "An exception occurred in the Activity task.");
+
+        throw;
+      }
     }
   }
 }
