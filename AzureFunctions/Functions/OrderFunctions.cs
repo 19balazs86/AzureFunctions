@@ -23,7 +23,7 @@ namespace AzureFunctions.Functions
     /// TimerTrigger -> HttpTrigger
     /// </summary>
     [FunctionName("TimerFunction")]
-    public static async Task TimerFunction(
+    public static async Task TimerFunction( // Function is disabled in the local.settings.json
       [TimerTrigger("*/5 * * * * *")] TimerInfo myTimer, ILogger log)
     {
       if (myTimer.IsPastDue)
