@@ -13,13 +13,14 @@ This is a .NET Core application to try out some Azure Function features and a co
   - [Handling errors and poison blobs](http://dontcodetired.com/blog/post/Handling-Errors-and-Poison-Blobs-in-Azure-Functions-With-Azure-Blob-Storage-Triggers "Handling errors and poison blobs") *(DoNotCodeTired)*, [Azure doc](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob#trigger---poison-blobs "Azure doc")
 - [Durable Functions](https://docs.microsoft.com/en-ie/azure/azure-functions/durable/)
   - Durable Functions [series](http://dontcodetired.com/blog/?tag=durfuncseries) *(DoNotCodeTired)*
-    - [Part 1](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-1-Overview): Overview
-    - [Part 2](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-2-Creating-Your-First-Durable-Function): Creating your first Durable Function
+    - [Part 1](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-1-Overview): Overview | [Part 2](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-2-Creating-Your-First-Durable-Function): Creating your first Durable Function
     - [Part 3](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-3-What-Is-Durability): What is durability and behind the scenes
     - [Part 4](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-4-Passing-Input-To-Orchestrations-and-Activities): Passing input to the Orchestrations and Activities
-    - [Part 5](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-5-Getting-Results-from-Orchestrations): Getting results from Orchestrations (statusQueryGetUri)
+    - [Part 5](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-5-Getting-Results-from-Orchestrations): Getting results from Orchestrations (StatusQueryGetUri)
+    - [Part 6](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-6-Activity-Functions-with-Additional-Input-Bindings): Activity Functions with Additional Input Bindings
   - [Call activity with retry](https://www.serverlessnotes.com/docs/retries-with-azure-durable-functions) *(ServerlessNotes)*
   - [Presentation](https://www.youtube.com/watch?v=QvaPka0lmdU): Advanced Serverless Workflows with Durable Functions *(Jeremy Likness)*
+  - ON .NET Show: [Building workflows with the Durable Task Framework](https://www.youtube.com/watch?v=11a4FMm5BHU)
 - Testing Azure Functions
   - [Azure Tips and Tricks](https://microsoft.github.io/AzureTipsAndTricks/blog/tip196.html "Azure Tips and Tricks")
 
