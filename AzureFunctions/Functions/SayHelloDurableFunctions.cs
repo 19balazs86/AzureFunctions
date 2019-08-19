@@ -45,7 +45,7 @@ namespace AzureFunctions.Functions
       //foreach (string city in request.CityNames)
       //  tasks.Add(context.CallActivityAsync<string>(nameof(SayHello_Activity), city));
 
-      var retryOptions = new RetryOptions(TimeSpan.FromSeconds(2), 3);
+      var retryOptions = new RetryOptions(TimeSpan.FromSeconds(2), 3) { Handle = ex => ex is InvalidProgramException };
 
       foreach (string city in request.CityNames)
         tasks.Add(context.CallActivityWithRetryAsync<string>(nameof(SayHello_Activity), retryOptions, city));
@@ -63,23 +63,14 @@ namespace AzureFunctions.Functions
       [ActivityTrigger] string city,
       ILogger log)
     {
-      try
-      {
-        if (_random.NextDouble() < 0.10)
-          throw new Exception($"Random exception for {city}.");
+      if (_random.NextDouble() < 0.05 && city.Contains("a"))
+        throw new InvalidProgramException($"Random exception for {city}.");
 
-        log.LogInformation($"Wait and saying hello to {city}.");
+      log.LogInformation($"Wait and saying hello to {city}.");
 
-        await Task.Delay(3000);
+      await Task.Delay(3000);
 
-        return $"Hello {city}!";
-      }
-      catch (Exception ex)
-      {
-        log.LogError(ex, "An exception occurred in the Activity task.");
-
-        throw;
-      }
+      return $"Hello {city}!";
     }
   }
 }
