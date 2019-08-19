@@ -52,6 +52,9 @@ namespace AzureFunctions.Functions
 
       await Task.WhenAll(tasks);
 
+      // --> CallSubOrchestrator
+      _ = await context.CallSubOrchestratorAsync<IEnumerable<string>>(nameof(DurableFuncForIsReplaying.DurableFuncForIsReplaying_Orchestrator), null);
+
       return tasks.Select(t => t.Result);
     }
 
@@ -62,7 +65,7 @@ namespace AzureFunctions.Functions
     {
       try
       {
-        if (_random.NextDouble() < 0.15)
+        if (_random.NextDouble() < 0.10)
           throw new Exception($"Random exception for {city}.");
 
         log.LogInformation($"Wait and saying hello to {city}.");
