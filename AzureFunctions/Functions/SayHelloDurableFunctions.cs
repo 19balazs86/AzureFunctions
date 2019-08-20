@@ -50,12 +50,22 @@ namespace AzureFunctions.Functions
       foreach (string city in request.CityNames)
         tasks.Add(context.CallActivityWithRetryAsync<string>(nameof(SayHello_Activity), retryOptions, city));
 
-      await Task.WhenAll(tasks);
+      IEnumerable<string> results = Enumerable.Empty<string>();
+
+      try
+      {
+        results = await Task.WhenAll(tasks);
+      }
+      catch (Exception ex)
+      {
+        if (!context.IsReplaying)
+          log.LogError(ex, "Error during to call say hello.");
+      }
 
       // --> CallSubOrchestrator
       _ = await context.CallSubOrchestratorAsync<IEnumerable<string>>(nameof(DurableFuncForIsReplaying.DurableFuncForIsReplaying_Orchestrator), null);
 
-      return tasks.Select(t => t.Result);
+      return results;
     }
 
     [FunctionName(nameof(SayHello_Activity))]
