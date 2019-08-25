@@ -19,17 +19,15 @@ namespace AzureFunctions.Functions
 
     [FunctionName(nameof(Client_StartEmailConfirmation))]
     public static async Task<HttpResponseMessage> Client_StartEmailConfirmation(
-      [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestMessage request,
+      [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestMessage request,
       [OrchestrationClient] DurableOrchestrationClient starter)
     {
       // All this process is just for demo purpose to take advantage of the Durable Functions features.
 
-      dynamic data = await request.Content.ReadAsAsync<object>();
-
-      string email = data.email;
+      string email = request.RequestUri.ParseQueryString()["email"];
 
       if (string.IsNullOrWhiteSpace(email))
-        return request.CreateResponse(HttpStatusCode.BadRequest, "Missing email field in the request.");
+        return request.CreateResponse(HttpStatusCode.BadRequest, "Missing email field in the query.");
 
       string instanceId = await starter.StartNewAsync(nameof(Orchestrator_SendEmailConfirmation), email);
 

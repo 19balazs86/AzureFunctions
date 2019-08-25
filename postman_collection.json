@@ -69,7 +69,7 @@
 		{
 			"name": "StartEmailConfirmation",
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -77,12 +77,8 @@
 						"type": "text"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\t\"email\": \"test@gmail.com\"\r\n}"
-				},
 				"url": {
-					"raw": "http://localhost:5000/api/Client_StartEmailConfirmation",
+					"raw": "http://localhost:5000/api/Client_StartEmailConfirmation?email=test@gmail.com",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -91,6 +87,12 @@
 					"path": [
 						"api",
 						"Client_StartEmailConfirmation"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "test@gmail.com"
+						}
 					]
 				}
 			},
