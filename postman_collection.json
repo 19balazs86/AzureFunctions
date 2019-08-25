@@ -95,6 +95,26 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "StartEternalDurableFunc",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/Client_StartEternalDurableFunc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Client_StartEternalDurableFunc"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

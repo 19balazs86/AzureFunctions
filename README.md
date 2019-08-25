@@ -41,3 +41,7 @@ This is a .NET Core application to try out some Azure Function features and a co
 ###### EmailConfirmation
 
 - An email confirmation process with human interaction + time out. Some extra steps just to take advantage of the features.
+
+###### EternalDurableFunc
+
+- A simple example to use the ContinueAsNew method.
