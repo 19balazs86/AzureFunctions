@@ -7,15 +7,15 @@ namespace AzureFunctions.Functions
 {
   public static class DurableFuncForIsReplaying
   {
-    [FunctionName(nameof(DurableFuncForIsReplaying_Orchestrator))]
-    public static async Task<IEnumerable<string>> DurableFuncForIsReplaying_Orchestrator(
+    [FunctionName(nameof(Orchestrator_DurableFuncForIsReplaying))]
+    public static async Task<IEnumerable<string>> Orchestrator_DurableFuncForIsReplaying(
       [OrchestrationTrigger] DurableOrchestrationContext context,
       ILogger log)
     {
       if (!context.IsReplaying)
         log.LogInformation("Retrieve data from the DB.");
 
-      string[] cities = await context.CallActivityAsync<string[]>(nameof(GetCities_Activity), null);
+      string[] cities = await context.CallActivityAsync<string[]>(nameof(Activity_GetCities), null);
 
       var outputs = new List<string>();
 
@@ -24,21 +24,21 @@ namespace AzureFunctions.Functions
         log.LogInformation("Start to say hello to the cities.");
 
       foreach (string city in cities)
-        outputs.Add(await context.CallActivityAsync<string>(nameof(DurableFuncForIsReplaying_Activity), city));
+        outputs.Add(await context.CallActivityAsync<string>(nameof(Activity_DurableFuncForIsReplaying), city));
 
       return outputs;
     }
 
-    [FunctionName(nameof(DurableFuncForIsReplaying_Activity))]
-    public static string DurableFuncForIsReplaying_Activity([ActivityTrigger] string name, ILogger log)
+    [FunctionName(nameof(Activity_DurableFuncForIsReplaying))]
+    public static string Activity_DurableFuncForIsReplaying([ActivityTrigger] string name, ILogger log)
     {
       log.LogInformation($"Saying hello to {name}.");
 
       return $"Hello {name}!";
     }
 
-    [FunctionName(nameof(GetCities_Activity))]
-    public static string[] GetCities_Activity([ActivityTrigger] object input, ILogger log)
+    [FunctionName(nameof(Activity_GetCities))]
+    public static string[] Activity_GetCities([ActivityTrigger] object input, ILogger log)
     {
       log.LogInformation("Here you can have a DB call to retrieve data for the Orchestrator.");
 

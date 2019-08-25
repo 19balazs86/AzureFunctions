@@ -14,27 +14,27 @@ namespace AzureFunctions.Functions
   {
     private static readonly Random _random = new Random();
 
-    [FunctionName(nameof(SayHello_Client))]
-    public static async Task<HttpResponseMessage> SayHello_Client(
+    [FunctionName(nameof(Client_SayHello))]
+    public static async Task<HttpResponseMessage> Client_SayHello(
       [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestMessage request,
       [OrchestrationClient] DurableOrchestrationClient starter,
       ILogger log)
     {
       var sayHelloRequest = await request.Content.ReadAsAsync<SayHelloRequest>();
 
-      string instanceId = await starter.StartNewAsync(nameof(SayHello_Orchestrator), sayHelloRequest);
+      string instanceId = await starter.StartNewAsync(nameof(Orchestrator_SayHello), sayHelloRequest);
 
       log.LogInformation($"Started orchestration with ID = '{instanceId}'.");
 
       return starter.CreateCheckStatusResponse(request, instanceId);
     }
 
-    [FunctionName(nameof(SayHello_Orchestrator))]
-    public static async Task<IEnumerable<string>> SayHello_Orchestrator(
+    [FunctionName(nameof(Orchestrator_SayHello))]
+    public static async Task<IEnumerable<string>> Orchestrator_SayHello(
       [OrchestrationTrigger] DurableOrchestrationContext context,
       ILogger log)
     {
-      log.LogInformation($"Run: {nameof(SayHello_Orchestrator)}.");
+      log.LogInformation($"Run: {nameof(Orchestrator_SayHello)}.");
 
       // context.CurrentUtcDateTime
       // context.NewGuid()
@@ -48,7 +48,7 @@ namespace AzureFunctions.Functions
       var retryOptions = new RetryOptions(TimeSpan.FromSeconds(2), 3) { Handle = ex => ex is InvalidProgramException };
 
       foreach (string city in request.CityNames)
-        tasks.Add(context.CallActivityWithRetryAsync<string>(nameof(SayHello_Activity), retryOptions, city));
+        tasks.Add(context.CallActivityWithRetryAsync<string>(nameof(Activity_SayHello), retryOptions, city));
 
       IEnumerable<string> results = Enumerable.Empty<string>();
 
@@ -63,13 +63,13 @@ namespace AzureFunctions.Functions
       }
 
       // --> CallSubOrchestrator
-      _ = await context.CallSubOrchestratorAsync<IEnumerable<string>>(nameof(DurableFuncForIsReplaying.DurableFuncForIsReplaying_Orchestrator), null);
+      _ = await context.CallSubOrchestratorAsync<IEnumerable<string>>(nameof(DurableFuncForIsReplaying.Orchestrator_DurableFuncForIsReplaying), null);
 
       return results;
     }
 
-    [FunctionName(nameof(SayHello_Activity))]
-    public static async Task<string> SayHello_Activity(
+    [FunctionName(nameof(Activity_SayHello))]
+    public static async Task<string> Activity_SayHello(
       [ActivityTrigger] string city,
       ILogger log)
     {

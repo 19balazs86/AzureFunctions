@@ -36,7 +36,7 @@
 			"response": []
 		},
 		{
-			"name": "SayHello_Client",
+			"name": "Client_SayHello",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -52,7 +52,7 @@
 					"raw": "{\"CityNames\":[\"Bangkok\",\"London\",\"Paris\",\"Dubai\",\"Singapore\",\"New York\",\"Kuala Lumpur\",\"Tokyo\",\"Istanbul\",\"Seoul\",\"Antalya\",\"Phuket\",\"Mecca\",\"Hong Kong\",\"Milan\",\"Palma de Mallorca\",\"Barcelona\",\"Pattaya\",\"Osaka\",\"Bali\"]}"
 				},
 				"url": {
-					"raw": "http://localhost:5000/api/SayHello_Client",
+					"raw": "http://localhost:5000/api/Client_SayHello",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -60,7 +60,7 @@
 					"port": "5000",
 					"path": [
 						"api",
-						"SayHello_Client"
+						"Client_SayHello"
 					]
 				}
 			},
