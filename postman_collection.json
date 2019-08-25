@@ -65,6 +65,36 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "StartEmailConfirmation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"email\": \"test@gmail.com\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/Client_StartEmailConfirmation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Client_StartEmailConfirmation"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
