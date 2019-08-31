@@ -21,6 +21,8 @@ This is a .NET Core application to try out some Azure Function features and a co
     - [Part 5](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-5-Getting-Results-from-Orchestrations): Getting results from Orchestrations (StatusQueryGetUri)
     - [Part 6](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-6-Activity-Functions-with-Additional-Input-Bindings): Activity Functions with Additional Input Bindings
     - Patterns: [Part 7](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-7-The-Function-Chaining-Pattern): Chaining | [Part 8](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-8-The-Fan-OutFan-In-Pattern): Fan Out/Fan In
+    - [Part 9](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-9-The-Asynchronous-HTTP-API-Pattern): Custom HTTP endpoint to check status
+    - [Part 10](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-10-The-Monitor-Pattern): Monitor pattern.
   - [Call activity with retry](https://www.serverlessnotes.com/docs/retries-with-azure-durable-functions) *(ServerlessNotes)*
   - [Presentation](https://www.youtube.com/watch?v=QvaPka0lmdU): Advanced Serverless Workflows with Durable Functions *(Jeremy Likness)*
   - ON .NET Show: [Building workflows with the Durable Task Framework](https://www.youtube.com/watch?v=11a4FMm5BHU)
