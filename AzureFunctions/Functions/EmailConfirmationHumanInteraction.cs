@@ -61,6 +61,9 @@ namespace AzureFunctions.Functions
 
         Task<string> confirmResultTask = context.WaitForExternalEvent<string>(_eventName);
 
+        if (!context.IsReplaying)
+          context.SetCustomStatus($"Waiting for human interaction or timeout at: {timeoutAt.ToString("hh:mm:ss")} UTC.");
+
         Task winnerTask = await Task.WhenAny(confirmResultTask, timeoutTask);
 
         if (winnerTask == confirmResultTask)
