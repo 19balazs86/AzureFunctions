@@ -26,10 +26,10 @@ namespace AzureFunctions.Functions
 
       string email = request.RequestUri.ParseQueryString()["email"];
 
-      var input = (email, requestUri: request.RequestUri);
-
       if (string.IsNullOrWhiteSpace(email))
         return request.CreateResponse(HttpStatusCode.BadRequest, "Missing email field in the query.");
+
+      var input = (email, requestUri: request.RequestUri);
 
       string instanceId = await starter.StartNewAsync(nameof(Orchestrator_SendEmailConfirmation), input);
 

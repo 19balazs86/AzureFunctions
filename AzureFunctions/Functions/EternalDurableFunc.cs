@@ -12,8 +12,8 @@ namespace AzureFunctions.Functions
   {
     [FunctionName(nameof(Client_StartEternalDurableFunc))]
     public static async Task<HttpResponseMessage> Client_StartEternalDurableFunc(
-      [HttpTrigger(AuthorizationLevel.Anonymous, "get")]HttpRequestMessage request,
-      [OrchestrationClient]DurableOrchestrationClient starter)
+      [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestMessage request,
+      [OrchestrationClient] DurableOrchestrationClient starter)
     {
       string instanceId = await starter.StartNewAsync(nameof(Orchestrator_EternalFunc), 1);
 
