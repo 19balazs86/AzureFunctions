@@ -26,10 +26,12 @@ namespace AzureFunctions.Functions
 
       string email = request.RequestUri.ParseQueryString()["email"];
 
+      var input = (email, requestUri: request.RequestUri);
+
       if (string.IsNullOrWhiteSpace(email))
         return request.CreateResponse(HttpStatusCode.BadRequest, "Missing email field in the query.");
 
-      string instanceId = await starter.StartNewAsync(nameof(Orchestrator_SendEmailConfirmation), email);
+      string instanceId = await starter.StartNewAsync(nameof(Orchestrator_SendEmailConfirmation), input);
 
       return starter.CreateCheckStatusResponse(request, instanceId);
     }
@@ -42,11 +44,12 @@ namespace AzureFunctions.Functions
       if (!context.IsReplaying)
         log.LogInformation("SendEmailConfirmation orchestration started.");
 
-      string email = context.GetInput<string>();
+      var (email, requestUri) = context.GetInput<Tuple<string, Uri>>();
 
       var confirmationInfo = new EmailConfirmationInfo
       {
         Id              = context.NewGuid(),
+        RequestUri      = requestUri,
         Email           = email,
         OrchestrationId = context.InstanceId,
         Result          = "Sent"
@@ -87,9 +90,16 @@ namespace AzureFunctions.Functions
     {
       tableEntity = new EmailConfirmationTableEntity(confirmationInfo);
 
-      string functionAddress = $"http://localhost:5000/api/{nameof(ConfirmEmail)}/{confirmationInfo.Id}?result=Approved";
+      UriBuilder uriBuilder = new UriBuilder
+      {
+        Scheme = confirmationInfo.RequestUri.Scheme,
+        Host   = confirmationInfo.RequestUri.Host,
+        Port   = confirmationInfo.RequestUri.Port,
+        Path   = $"api/{nameof(ConfirmEmail)}/{confirmationInfo.Id}",
+        Query = "result=Approved"
+      };
 
-      log.LogInformation($"Confirm email with the URL: '{functionAddress}'.");
+      log.LogInformation($"Confirm email with the URL: '{uriBuilder.ToString()}'.");
     }
 
     [FunctionName(nameof(ConfirmEmail))]
