@@ -3,12 +3,13 @@ This is a .NET Core application to try out some Azure Function features and a co
 
 #### Resources
 - [Microsoft Azure documentation](https://docs.microsoft.com/en-us/azure/azure-functions/ "Microsoft Azure documentation")
-  - [Dependency Injection](https://docs.microsoft.com/en-us/azure/azure-functions/functions-dotnet-dependency-injection "Dependency Injection")
+  - [Dependency Injection](https://docs.microsoft.com/en-us/azure/azure-functions/functions-dotnet-dependency-injection "Dependency Injection") | [ON.NET show](https://youtu.be/LTPbaNzJd18?t=60)
   - [host.json reference](https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json "host.json reference")
 - Pluralsight: [Azure Functions Fundamentals](https://app.pluralsight.com/library/courses/azure-functions-fundamentals) (Mark Heath)
 - Custom Function Binding
   - [Creating custom Function Binding](http://dontcodetired.com/blog/post/Creating-Custom-Azure-Functions-Bindings "Creating custom Function Binding") *(DoNotCodeTired)*
   - [Token authentication using custom Function binding](https://www.ben-morris.com/custom-token-authentication-in-azure-functions-using-bindings/ "Token authentication using custom Function binding") *(Ben Morris)*
+  - [ON.NET show](https://youtu.be/vKrUn9qiUI8?t=60) *(Matías Quaranta)*
 - [Blob Storage](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob "Blob Storage")
   - [Getting Blob Metadata](http://dontcodetired.com/blog/post/Getting-Blob-Metadata-When-Using-Azure-Functions-Blob-Storage-Triggers "Getting Blob Metadata") *(DoNotCodeTired)*
   - [Handling errors and poison blobs](http://dontcodetired.com/blog/post/Handling-Errors-and-Poison-Blobs-in-Azure-Functions-With-Azure-Blob-Storage-Triggers "Handling errors and poison blobs") *(DoNotCodeTired)*, [Azure doc](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob#trigger---poison-blobs "Azure doc")
