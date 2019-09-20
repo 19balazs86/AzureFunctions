@@ -5,7 +5,7 @@ This is a .NET Core application to try out some Azure Function features and a co
 - [Microsoft Azure documentation](https://docs.microsoft.com/en-us/azure/azure-functions/ "Microsoft Azure documentation")
   - [Dependency Injection](https://docs.microsoft.com/en-us/azure/azure-functions/functions-dotnet-dependency-injection "Dependency Injection") | [ON.NET show](https://youtu.be/LTPbaNzJd18?t=60)
   - [host.json reference](https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json "host.json reference")
-- Pluralsight: [Azure Functions Fundamentals](https://app.pluralsight.com/library/courses/azure-functions-fundamentals) (Mark Heath)
+- Pluralsight: [Azure Functions Fundamentals](https://app.pluralsight.com/library/courses/azure-functions-fundamentals) *(Mark Heath)*
 - Custom Function Binding
   - [Creating custom Function Binding](http://dontcodetired.com/blog/post/Creating-Custom-Azure-Functions-Bindings "Creating custom Function Binding") *(DoNotCodeTired)*
   - [Token authentication using custom Function binding](https://www.ben-morris.com/custom-token-authentication-in-azure-functions-using-bindings/ "Token authentication using custom Function binding") *(Ben Morris)*
@@ -28,6 +28,8 @@ This is a .NET Core application to try out some Azure Function features and a co
   - ON .NET Show: [Building workflows with the Durable Task Framework](https://www.youtube.com/watch?v=11a4FMm5BHU)
 - Testing Azure Functions
   - [Azure Tips and Tricks](https://microsoft.github.io/AzureTipsAndTricks/blog/tip196.html "Azure Tips and Tricks")
+- Other
+  - [Is Serverless really as cheap as everyone claims?](https://dev.to/azure/is-serverless-really-as-cheap-as-everyone-claims-4i9n) *(Burke Holland - dev.to)*
 
 #### Functions
 
