@@ -30,6 +30,11 @@ This is a .NET Core application to try out some Azure Function features and a co
   - [Azure Tips and Tricks](https://microsoft.github.io/AzureTipsAndTricks/blog/tip196.html "Azure Tips and Tricks")
 - Other
   - [Is Serverless really as cheap as everyone claims?](https://dev.to/azure/is-serverless-really-as-cheap-as-everyone-claims-4i9n) *(Burke Holland - dev.to)*
+  - Processing messages/events in the given order with Azure Functions *(Jeff Hollan)*
+    - [Choosing between queues and event hubs](https://hackernoon.com/azure-functions-choosing-between-queues-and-event-hubs-dac4157eee1c)
+    - [Event processing with Event Hubs](https://medium.com/@jeffhollan/in-order-event-processing-with-azure-functions-bb661eb55428)
+    - [Ordered queue processing with Sessions](https://dev.to/azure/ordered-queue-processing-in-azure-functions-4h6c)
+    - [Reliable Event Processing](https://hackernoon.com/reliable-event-processing-in-azure-functions-37054dc2d0fc)
 
 #### Functions
 
