@@ -20,10 +20,18 @@ namespace AzureFunctions
         return _jsonSerializer.Deserialize<T>(jsonTextReader);
     }
 
-    public static void WriteJson(this TextWriter textWriter, object value)
+    public static async Task WriteJsonAsync(this TextWriter textWriter, object value)
     {
       using (var jsonWriter = new JsonTextWriter(textWriter))
+      {
         _jsonSerializer.Serialize(jsonWriter, value);
+
+        await jsonWriter.FlushAsync();
+
+        // Do not forget to flush the JsonTextWriter or you’ll end with an empty stream.
+        // Efficient post calls with HttpClient and JSON.NET
+        // https://johnthiriet.com/efficient-post-calls
+      }
     }
 
     public static Task<HttpRequestBody<T>> GetBodyAsync<T>(this HttpRequest request) where T : class

@@ -69,7 +69,7 @@ namespace AzureFunctions.Functions
 
       // Create binding imperatively.
       using (var textWriter = await binder.BindAsync<TextWriter>(new BlobAttribute(fileName, FileAccess.Write)))
-        textWriter.WriteJson(order);
+        await textWriter.WriteJsonAsync(order);
 
       return new OkObjectResult(new { Message = "Order accepted.", order.Id });
     }
