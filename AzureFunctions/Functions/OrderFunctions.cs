@@ -12,18 +12,19 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace AzureFunctions.Functions
 {
-  public static class OrderFunctions
+  public class OrderFunctions
   {
     private static readonly Random _random = new Random();
 
-    private static readonly HttpClient _httpClient
-      = new HttpClient { BaseAddress = new Uri("http://localhost:5000") };
+    private readonly IHttpClientFactory _clientFactory;
+
+    public OrderFunctions(IHttpClientFactory clientFactory) => _clientFactory = clientFactory;
 
     /// <summary>
     /// TimerTrigger -> HttpTrigger
     /// </summary>
     [FunctionName("TimerFunction")]
-    public static async Task TimerFunction( // Function is disabled in the local.settings.json
+    public async Task TimerFunction( // Function is disabled in the local.settings.json
       [TimerTrigger("*/5 * * * * *")] TimerInfo myTimer, ILogger log)
     {
       if (myTimer.IsPastDue)
@@ -36,7 +37,8 @@ namespace AzureFunctions.Functions
         ProductName = $"Product #{_random.Next(1, 10)}"
       };
 
-      _ = await _httpClient.PostAsJsonAsync("api/PlaceOrder", orderRequest);
+      _ = await _clientFactory.CreateClient(Startup.PlaceOrderClientName)
+        .PostAsJsonAsync("api/PlaceOrder", orderRequest);
     }
 
     /// <summary>
