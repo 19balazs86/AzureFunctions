@@ -6,5 +6,10 @@
       "Host": "Warning",
       "Function": "Debug"
     }
+  },
+  "extensions": {
+    "durableTask": {
+      "hubName": "%MyTaskHub%" // The name is configurable in local.settings.json
+    }
   }
 }
