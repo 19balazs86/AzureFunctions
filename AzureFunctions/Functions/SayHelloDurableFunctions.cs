@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using AzureFunctions.Models;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 
@@ -17,7 +18,7 @@ namespace AzureFunctions.Functions
     [FunctionName(nameof(Client_SayHello))]
     public static async Task<HttpResponseMessage> Client_SayHello(
       [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestMessage request,
-      [OrchestrationClient] DurableOrchestrationClient starter,
+      [DurableClient] IDurableClient starter,
       ILogger log)
     {
       var sayHelloRequest = await request.Content.ReadAsAsync<SayHelloRequest>();
@@ -31,7 +32,7 @@ namespace AzureFunctions.Functions
 
     [FunctionName(nameof(Orchestrator_SayHello))]
     public static async Task<IEnumerable<string>> Orchestrator_SayHello(
-      [OrchestrationTrigger] DurableOrchestrationContext context,
+      [OrchestrationTrigger] IDurableOrchestrationContext context,
       ILogger log)
     {
       log.LogInformation($"Run: {nameof(Orchestrator_SayHello)}.");

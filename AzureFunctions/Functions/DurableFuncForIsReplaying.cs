@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Extensions.Logging;
 
 namespace AzureFunctions.Functions
@@ -9,7 +10,7 @@ namespace AzureFunctions.Functions
   {
     [FunctionName(nameof(Orchestrator_DurableFuncForIsReplaying))]
     public static async Task<IEnumerable<string>> Orchestrator_DurableFuncForIsReplaying(
-      [OrchestrationTrigger] DurableOrchestrationContext context,
+      [OrchestrationTrigger] IDurableOrchestrationContext context,
       ILogger log)
     {
       if (!context.IsReplaying)

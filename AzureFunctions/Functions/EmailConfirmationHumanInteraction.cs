@@ -7,6 +7,7 @@ using AzureFunctions.Models.EmailConfirmation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.WindowsAzure.Storage.Table;
@@ -20,7 +21,7 @@ namespace AzureFunctions.Functions
     [FunctionName(nameof(Client_StartEmailConfirmation))]
     public static async Task<HttpResponseMessage> Client_StartEmailConfirmation(
       [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestMessage request,
-      [OrchestrationClient] DurableOrchestrationClient starter)
+      [DurableClient] IDurableClient starter)
     {
       // All this process is just for demo purpose to take advantage of the Durable Functions features.
 
@@ -29,7 +30,7 @@ namespace AzureFunctions.Functions
       if (string.IsNullOrWhiteSpace(email))
         return request.CreateResponse(HttpStatusCode.BadRequest, "Missing email field in the query.");
 
-      var input = (email, requestUri: request.RequestUri);
+      var input = new EmailConfirmationInput(email, request.RequestUri);
 
       string instanceId = await starter.StartNewAsync(nameof(Orchestrator_SendEmailConfirmation), input);
 
@@ -38,19 +39,19 @@ namespace AzureFunctions.Functions
 
     [FunctionName(nameof(Orchestrator_SendEmailConfirmation))]
     public static async Task<EmailConfirmationInfo> Orchestrator_SendEmailConfirmation(
-      [OrchestrationTrigger] DurableOrchestrationContext context,
+      [OrchestrationTrigger] IDurableOrchestrationContext context,
       ILogger log)
     {
       if (!context.IsReplaying)
         log.LogInformation("SendEmailConfirmation orchestration started.");
 
-      var (email, requestUri) = context.GetInput<Tuple<string, Uri>>();
+      EmailConfirmationInput input = context.GetInput<EmailConfirmationInput>();
 
       var confirmationInfo = new EmailConfirmationInfo
       {
         Id              = context.NewGuid(),
-        RequestUri      = requestUri,
-        Email           = email,
+        RequestUri      = input.RequestUri,
+        Email           = input.Email,
         OrchestrationId = context.InstanceId,
         Result          = "Sent"
       };
@@ -105,7 +106,7 @@ namespace AzureFunctions.Functions
     [FunctionName(nameof(ConfirmEmail))]
     public static async Task<IActionResult> ConfirmEmail(
       [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "ConfirmEmail/{id}")] HttpRequest request,
-      [OrchestrationClient] DurableOrchestrationClient client,
+      [DurableClient] IDurableClient client,
       [Table("EmailConfirmations", EmailConfirmationTableEntity.PartitionKeyValue, "{id}")] EmailConfirmationTableEntity tableEntity,
       ILogger log)
     {

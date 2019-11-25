@@ -13,7 +13,12 @@ This is a .NET Core application to try out some Azure Function features and a co
 - [Blob Storage](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob "Blob Storage")
   - [Getting Blob Metadata](http://dontcodetired.com/blog/post/Getting-Blob-Metadata-When-Using-Azure-Functions-Blob-Storage-Triggers "Getting Blob Metadata") *(DoNotCodeTired)*
   - [Handling errors and poison blobs](http://dontcodetired.com/blog/post/Handling-Errors-and-Poison-Blobs-in-Azure-Functions-With-Azure-Blob-Storage-Triggers "Handling errors and poison blobs") *(DoNotCodeTired)*, [Azure doc](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob#trigger---poison-blobs "Azure doc")
-- [Durable Functions](https://docs.microsoft.com/en-ie/azure/azure-functions/durable/)
+- Durable Functions 2.x 
+  - [Durable Functions versions](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-versions) *(overview, migration)*
+  - [Consuming HTTP APIs](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-http-features#consuming-http-apis) *(concept)*
+  - [Entity functions](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-entities) *(concept)*
+  - [Developers guide to durable entities in .NET](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-dotnet-entities) *(how-to guides)*
+- [Durable Functions](https://docs.microsoft.com/en-ie/azure/azure-functions/durable/) 1.x
   - Pluralsight: [Azure Durable Functions Fundamentals](https://app.pluralsight.com/library/courses/azure-durable-functions-fundamentals) *(Mark Heath)*
   - Durable Functions [series](http://dontcodetired.com/blog/?tag=durfuncseries) *(DoNotCodeTired)*
     - [Part 1](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-1-Overview): Overview | [Part 2](http://dontcodetired.com/blog/post/Understanding-Azure-Durable-Functions-Part-2-Creating-Your-First-Durable-Function): Creating your first Durable Function
@@ -30,7 +35,7 @@ This is a .NET Core application to try out some Azure Function features and a co
   - [Azure Tips and Tricks](https://microsoft.github.io/AzureTipsAndTricks/blog/tip196.html "Azure Tips and Tricks")
 - Other
   - [Is Serverless really as cheap as everyone claims?](https://dev.to/azure/is-serverless-really-as-cheap-as-everyone-claims-4i9n) *(Burke Holland - dev.to)*
-  - [Links](https://github.com/19balazs86/AzureServiceBus): Processing messages/events in the given order with Azure Functions *(Jeff Hollan)
+  - [Links](https://github.com/19balazs86/AzureServiceBus): Processing messages/events in the given order with Azure Functions *(Jeff Hollan)*
 
 #### Functions
 
