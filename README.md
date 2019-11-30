@@ -15,7 +15,7 @@ This is a .NET Core application to try out some Azure Function features and a co
   - [Handling errors and poison blobs](http://dontcodetired.com/blog/post/Handling-Errors-and-Poison-Blobs-in-Azure-Functions-With-Azure-Blob-Storage-Triggers "Handling errors and poison blobs") *(DoNotCodeTired)*, [Azure doc](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob#trigger---poison-blobs "Azure doc")
 - Durable Functions 2.x 
   - [Durable Functions versions](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-versions) *(overview, migration)*
-  - [Consuming HTTP APIs](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-http-features#consuming-http-apis) *(concept)*
+  - [Consuming HTTP APIs](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-http-features#consuming-http-apis) *(concept)* | [Serverless HTTP With Durable Functions](https://blog.jeremylikness.com/blog/serverless-http-with-durable-functions) *(Jeremy Likness)*
   - [Entity functions](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-entities) *(concept)*
   - [Developers guide to durable entities in .NET](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-dotnet-entities) *(how-to guides)*
 - [Durable Functions](https://docs.microsoft.com/en-ie/azure/azure-functions/durable/) 1.x
