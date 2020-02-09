@@ -160,6 +160,26 @@
 			"response": []
 		},
 		{
+			"name": "Counter_GetAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/Counters",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"Counters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Counter_Add",
 			"request": {
 				"method": "GET",

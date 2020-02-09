@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
@@ -42,6 +43,18 @@ namespace AzureFunctions.DurableEntities
 
       //return request.CreateResponse(state) // Did not work. ResponseCode 406
       return new OkObjectResult(state);
+    }
+
+    [FunctionName(nameof(CounterGetAll))]
+    public static async Task<IActionResult> CounterGetAll(
+      [HttpTrigger(AuthorizationLevel.Anonymous, "GET", Route = "Counters")] HttpRequest request,
+      [DurableClient] IDurableEntityClient client)
+    {
+      var entityQuery = new EntityQuery { EntityName = nameof(Counter) };
+
+      EntityQueryResult result = await client.ListEntitiesAsync(entityQuery, request.HttpContext.RequestAborted);
+
+      return new OkObjectResult(result.Entities);
     }
 
     [FunctionName(nameof(CounterDelete))]
