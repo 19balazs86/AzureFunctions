@@ -18,18 +18,9 @@ namespace AzureFunctions.Models.OrderFunction
       ValidationResults = validationResults ?? Enumerable.Empty<ValidationResult>();
     }
 
-    public HttpRequestBody(bool isValid, T value, string errorMessage)
-      : this(isValid, value, new[] { new ValidationResult(errorMessage) })
-    {
-      
-    }
-
-    public HttpRequestBody(string errorMessage)
-      : this(false, null, errorMessage)
-    {
-
-    }
-
     public string ValidationString() => string.Join(", ", ValidationResults.Select(v => v.ErrorMessage));
+
+    public static HttpRequestBody<T> CreateInvalid(string errorMessage)
+      => new HttpRequestBody<T>(false, null, new[] { new ValidationResult(errorMessage) });
   }
 }
