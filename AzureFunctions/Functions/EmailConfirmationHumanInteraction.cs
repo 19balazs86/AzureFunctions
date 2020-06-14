@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 using AzureFunctions.Models.EmailConfirmation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.Cosmos.Table;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
-using Microsoft.WindowsAzure.Storage.Table;
 
 namespace AzureFunctions.Functions
 {
-  public static class EmailConfirmationHumanInteraction
+    public static class EmailConfirmationHumanInteraction
   {
     private const string _eventName = "EmailConfirmationResult";
 
@@ -100,7 +100,7 @@ namespace AzureFunctions.Functions
         Query = "result=Approved"
       };
 
-      log.LogInformation($"Confirm email with the URL: '{uriBuilder.ToString()}'.");
+      log.LogInformation($"Confirm email with the URL: '{uriBuilder}'.");
     }
 
     [FunctionName(nameof(ConfirmEmail))]

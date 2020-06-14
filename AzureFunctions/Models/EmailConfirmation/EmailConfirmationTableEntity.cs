@@ -1,8 +1,8 @@
-﻿using Microsoft.WindowsAzure.Storage.Table;
+﻿using Microsoft.Azure.Cosmos.Table;
 
 namespace AzureFunctions.Models.EmailConfirmation
 {
-  public class EmailConfirmationTableEntity : TableEntity
+    public class EmailConfirmationTableEntity : TableEntity
   {
     public const string PartitionKeyValue = "confirmation";
 
