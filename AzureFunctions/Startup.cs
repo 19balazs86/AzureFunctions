@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 [assembly: WebJobsStartup(typeof(Startup))]
 namespace AzureFunctions
 {
+  // FunctionsStartup, customizing configuration sources
+  // https://docs.microsoft.com/en-us/azure/azure-functions/functions-dotnet-dependency-injection#customizing-configuration-sources
   public class Startup : IWebJobsStartup
   {
     public const string PlaceOrderClientName = "PlaceOrderApi";
