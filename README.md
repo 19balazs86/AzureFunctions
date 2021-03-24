@@ -4,7 +4,7 @@ This is a .NET Core application to try out some Azure Function features and a co
 #### Resources
 - [Microsoft Azure documentation](https://docs.microsoft.com/en-us/azure/azure-functions/ "Microsoft Azure documentation")
   - [Dependency Injection](https://docs.microsoft.com/en-us/azure/azure-functions/functions-dotnet-dependency-injection "Dependency Injection") | [ON.NET show](https://youtu.be/LTPbaNzJd18?t=60)
-  - [host.json reference](https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json "host.json reference")
+  - [host.json reference](https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json "host.json reference"), [host.json schema](http://json.schemastore.org/host) *(schemastore.org)*
   - [Develop Azure Functions V3 using .NET Core 3.1](https://dev.to/azure/develop-azure-functions-using-net-core-3-0-gcm) *(Jeff Hollan)*
 - Pluralsight: [Azure Functions Fundamentals](https://app.pluralsight.com/library/courses/azure-functions-fundamentals) *(Mark Heath)*
 - Custom Function Binding
