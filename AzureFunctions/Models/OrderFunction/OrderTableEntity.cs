@@ -1,10 +1,9 @@
-﻿using System;
-using Microsoft.WindowsAzure.Storage.Table;
+﻿using Microsoft.WindowsAzure.Storage.Table;
 
-namespace AzureFunctions.Models.OrderFunction
+namespace AzureFunctions.Models.OrderFunction;
+
+public class OrderTableEntity : TableEntity
 {
-  public class OrderTableEntity : TableEntity
-  {
     public int CustomerId { get; set; }
     public DateTime Date { get; set; }
     public string ProductName { get; set; }
@@ -14,13 +13,12 @@ namespace AzureFunctions.Models.OrderFunction
 
     public OrderTableEntity(Order order)
     {
-      PartitionKey = "order";
-      RowKey       = order.Id.ToString();
+        PartitionKey = "order";
+        RowKey       = order.Id.ToString();
 
-      CustomerId  = order.CustomerId;
-      Date        = order.Date;
-      ProductName = order.ProductName;
-      Quantity    = order.Quantity;
+        CustomerId  = order.CustomerId;
+        Date        = order.Date;
+        ProductName = order.ProductName;
+        Quantity    = order.Quantity;
     }
-  }
 }

@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AzureFunctions.Models.OrderFunction
+namespace AzureFunctions.Models.OrderFunction;
+
+public class OrderRequest
 {
-  public class OrderRequest
-  {
     [Range(1, int.MaxValue)]
     public int CustomerId { get; set; }
 
@@ -12,5 +12,4 @@ namespace AzureFunctions.Models.OrderFunction
 
     [Range(1, int.MaxValue)]
     public int Quantity { get; set; }
-  }
 }

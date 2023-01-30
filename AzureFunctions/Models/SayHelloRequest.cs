@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
+﻿namespace AzureFunctions.Models;
 
-namespace AzureFunctions.Models
+public class SayHelloRequest
 {
-  public class SayHelloRequest
-  {
     public IEnumerable<string> CityNames { get; set; }
-  }
 }

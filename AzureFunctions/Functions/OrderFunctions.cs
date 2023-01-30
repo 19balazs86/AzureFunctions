@@ -1,7 +1,3 @@
-using System;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
 using AzureFunctions.Models.OrderFunction;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +6,10 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
 
-namespace AzureFunctions.Functions
+namespace AzureFunctions.Functions;
+
+public class OrderFunctions
 {
-    public class OrderFunctions
-  {
     private static readonly Random _random = new Random();
 
     private readonly IHttpClientFactory _clientFactory;
@@ -25,20 +21,21 @@ namespace AzureFunctions.Functions
     /// </summary>
     [FunctionName("TimerFunction")]
     public async Task TimerFunction( // Function is disabled in the local.settings.json
-      [TimerTrigger("*/5 * * * * *")] TimerInfo myTimer, ILogger log)
+        [TimerTrigger("*/5 * * * * *")] TimerInfo myTimer, ILogger log)
     {
-      if (myTimer.IsPastDue)
-        log.LogInformation("Timer is running late!");
+        if (myTimer.IsPastDue)
+            log.LogInformation("Timer is running late!");
 
-      var orderRequest = new OrderRequest
-      {
-        CustomerId  = _random.Next(1, 10),
-        Quantity    = _random.Next(1, 10),
-        ProductName = $"Product #{_random.Next(1, 10)}"
-      };
+        var orderRequest = new OrderRequest
+        {
+            CustomerId  = _random.Next(1, 10),
+            Quantity    = _random.Next(1, 10),
+            ProductName = $"Product #{_random.Next(1, 10)}"
+        };
 
-      _ = await _clientFactory.CreateClient(Startup.PlaceOrderClientName)
-        .PostAsJsonAsync("api/PlaceOrder", orderRequest);
+        _ = await _clientFactory
+            .CreateClient(Startup.PlaceOrderClientName)
+            .PostAsJsonAsync("api/PlaceOrder", orderRequest);
     }
 
     /// <summary>
@@ -46,34 +43,34 @@ namespace AzureFunctions.Functions
     /// </summary>
     [FunctionName("HttpFunction")]
     public static async Task<IActionResult> HttpFunction(
-      [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "PlaceOrder")] HttpRequest request,
-      //[Blob("orders/{rand-guid}.json")] TextWriter textWriter,
-      Binder binder,
-      ILogger log)
+        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "PlaceOrder")] HttpRequest request,
+        //[Blob("orders/{rand-guid}.json")] TextWriter textWriter,
+        Binder binder,
+        ILogger log)
     {
-      HttpRequestBody<OrderRequest> requestBody = await request.GetBodyAsync<OrderRequest>();
+        HttpRequestBody<OrderRequest> requestBody = await request.GetBodyAsync<OrderRequest>();
 
-      if (!requestBody.IsValid)
-        return new BadRequestObjectResult($"Model is invalid: {requestBody.ValidationString()}");
+        if (!requestBody.IsValid)
+            return new BadRequestObjectResult($"Model is invalid: {requestBody.ValidationString()}");
 
-      var order = new Order
-      {
-        Id          = Guid.NewGuid(),
-        Date        = DateTime.UtcNow,
-        CustomerId  = requestBody.Value.CustomerId,
-        ProductName = requestBody.Value.ProductName,
-        Quantity    = requestBody.Value.Quantity
-      };
+        var order = new Order
+        {
+            Id          = Guid.NewGuid(),
+            Date        = DateTime.UtcNow,
+            CustomerId  = requestBody.Value.CustomerId,
+            ProductName = requestBody.Value.ProductName,
+            Quantity    = requestBody.Value.Quantity
+        };
 
-      log.LogInformation("Order is requested with id: {orderId}.", order.Id);
+        log.LogInformation("Order is requested with id: {orderId}.", order.Id);
 
-      string fileName = $"orders/{order.Id}.json";
+        string fileName = $"orders/{order.Id}.json";
 
-      // Create binding imperatively.
-      using (var textWriter = await binder.BindAsync<TextWriter>(new BlobAttribute(fileName, FileAccess.Write)))
-        await textWriter.WriteJsonAsync(order);
+        // Create binding imperatively.
+        using (var textWriter = await binder.BindAsync<TextWriter>(new BlobAttribute(fileName, FileAccess.Write)))
+            await textWriter.WriteJsonAsync(order);
 
-      return new OkObjectResult(new { Message = "Order accepted.", order.Id });
+        return new OkObjectResult(new { Message = "Order accepted.", order.Id });
     }
 
     /// <summary>
@@ -83,40 +80,39 @@ namespace AzureFunctions.Functions
     [FunctionName("BlobFunction")]
     [return: Queue("orders")]
     public static async Task<Order> BlobFunction(
-      [BlobTrigger("orders/{fileName}")] CloudBlockBlob myBlob,
-      string fileName,
-      //[Queue("orders")] IAsyncCollector<Order> ordersQueue,
-      ILogger log)
+        [BlobTrigger("orders/{fileName}")] CloudBlockBlob myBlob,
+        string fileName,
+        //[Queue("orders")] IAsyncCollector<Order> ordersQueue,
+        ILogger log)
     {
-      log.LogInformation($"Blob trigger function processing the file: '{fileName}'.");
+        log.LogInformation($"Blob trigger function processing the file: '{fileName}'.");
 
-      Order order;
+        Order order;
 
-      using (Stream stream = await myBlob.OpenReadAsync())
-        order = stream.ReadAs<Order>();
+        using (Stream stream = await myBlob.OpenReadAsync())
+            order = stream.ReadAs<Order>();
 
-      // If the file is processed but is not deleted, next time it won't be processed again.
-      // The blob container has information about the processed messages: azure-webjobs-hosts/blobreceipts
-      await myBlob.DeleteAsync();
+        // If the file is processed but is not deleted, next time it won't be processed again.
+        // The blob container has information about the processed messages: azure-webjobs-hosts/blobreceipts
+        await myBlob.DeleteAsync();
 
-      log.LogInformation($"Blob trigger function processed the order({order.Id}).");
+        log.LogInformation($"Blob trigger function processed the order({order.Id}).");
 
-      return order;
+        return order;
     }
 
     [FunctionName("QueueFunction")]
     public static void QueueFunction( // Async methods cannot have ref, in or out parameters.
-      [QueueTrigger("orders")] Order order,
-      //[Table("orders")] CloudTable orderTable,
-      [Table("orders")] out OrderTableEntity tableEntity,
-      ILogger log)
+        [QueueTrigger("orders")] Order order,
+        //[Table("orders")] CloudTable orderTable,
+        [Table("orders")] out OrderTableEntity tableEntity,
+        ILogger log)
     {
-      log.LogInformation($"Queue trigger function processed the order({order.Id}).");
+        log.LogInformation($"Queue trigger function processed the order({order.Id}).");
 
-      tableEntity = new OrderTableEntity(order);
+        tableEntity = new OrderTableEntity(order);
 
-      //TableOperation operation = TableOperation.InsertOrReplace(tableEntity);
-      //TableResult result       = await orderTable.ExecuteAsync(operation);
+        //TableOperation operation = TableOperation.InsertOrReplace(tableEntity);
+        //TableResult result       = await orderTable.ExecuteAsync(operation);
     }
-  }
 }
