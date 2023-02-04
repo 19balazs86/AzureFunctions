@@ -59,4 +59,6 @@ public class Counter : ICounter
 
         return Task.CompletedTask;
     }
+
+    public static EntityId CreateEntityId(string entityKey) => new EntityId(nameof(Counter), entityKey);
 }

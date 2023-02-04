@@ -59,7 +59,8 @@ public static class SayHelloDurableFunctions
         }
 
         // --> CallSubOrchestrator
-        _ = await context.CallSubOrchestratorAsync<IEnumerable<string>>(nameof(DurableFuncForIsReplaying.Orchestrator_DurableFuncForIsReplaying), null);
+        if (!context.IsReplaying)
+            _ = await context.CallSubOrchestratorAsync<IEnumerable<string>>(nameof(DurableFuncForIsReplaying.Orchestrator_DurableFuncForIsReplaying), null);
 
         return results;
     }

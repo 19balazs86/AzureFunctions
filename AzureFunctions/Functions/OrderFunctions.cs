@@ -10,8 +10,6 @@ namespace AzureFunctions.Functions;
 
 public class OrderFunctions
 {
-    private static readonly Random _random = new Random();
-
     private readonly IHttpClientFactory _clientFactory;
 
     public OrderFunctions(IHttpClientFactory clientFactory) => _clientFactory = clientFactory;
@@ -26,12 +24,7 @@ public class OrderFunctions
         if (myTimer.IsPastDue)
             log.LogInformation("Timer is running late!");
 
-        var orderRequest = new OrderRequest
-        {
-            CustomerId  = _random.Next(1, 10),
-            Quantity    = _random.Next(1, 10),
-            ProductName = $"Product #{_random.Next(1, 10)}"
-        };
+        var orderRequest = OrderRequest.CreateRandom();
 
         _ = await _clientFactory
             .CreateClient(Startup.PlaceOrderClientName)
@@ -53,14 +46,7 @@ public class OrderFunctions
         if (!requestBody.IsValid)
             return new BadRequestObjectResult($"Model is invalid: {requestBody.ValidationString()}");
 
-        var order = new Order
-        {
-            Id          = Guid.NewGuid(),
-            Date        = DateTime.UtcNow,
-            CustomerId  = requestBody.Value.CustomerId,
-            ProductName = requestBody.Value.ProductName,
-            Quantity    = requestBody.Value.Quantity
-        };
+        var order = requestBody.Value.ToOrder();
 
         log.LogInformation("Order is requested with id: {orderId}.", order.Id);
 

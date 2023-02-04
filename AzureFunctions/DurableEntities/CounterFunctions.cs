@@ -15,10 +15,10 @@ public static class CounterFunctions
         string entityKey,
         int amount)
     {
-        await client.SignalEntityAsync<ICounter>(getEntityId(entityKey), c => c.Add(amount));
+        await client.SignalEntityAsync<ICounter>(Counter.CreateEntityId(entityKey), c => c.Add(amount));
 
         // Scheduled signals (aka "reminders")
-        //await client.SignalEntityAsync<ICounter>(getEntityId(entityKey), DateTime.UtcNow.AddSeconds(5), c => c.Add(amount));
+        //await client.SignalEntityAsync<ICounter>(Counter.CreateEntityId(entityKey), DateTime.UtcNow.AddSeconds(5), c => c.Add(amount));
 
         return request.CreateResponse(HttpStatusCode.Accepted);
     }
@@ -29,7 +29,7 @@ public static class CounterFunctions
         [DurableClient] IDurableEntityClient client,
         string entityKey)
     {
-        EntityStateResponse<Counter> state = await client.ReadEntityStateAsync<Counter>(getEntityId(entityKey));
+        EntityStateResponse<Counter> state = await client.ReadEntityStateAsync<Counter>(Counter.CreateEntityId(entityKey));
 
         //return request.CreateResponse(state) // Did not work. ResponseCode 406
         return new OkObjectResult(state);
@@ -53,7 +53,7 @@ public static class CounterFunctions
         [DurableClient] IDurableEntityClient client,
         string entityKey)
     {
-        await client.SignalEntityAsync<ICounter>(getEntityId(entityKey), c => c.Delete());
+        await client.SignalEntityAsync<ICounter>(Counter.CreateEntityId(entityKey), c => c.Delete());
 
         return request.CreateResponse(HttpStatusCode.Accepted);
     }
@@ -84,6 +84,4 @@ public static class CounterFunctions
         // Two-way call to the entity which awaits the response value.
         return await counter.Add(input.Amount);
     }
-
-    private static EntityId getEntityId(string entityKey) => new EntityId(nameof(Counter), entityKey);
 }
