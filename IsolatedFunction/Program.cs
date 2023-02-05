@@ -3,9 +3,9 @@ using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-// Isolated functions middleware example
-// https://techiesweb.net/2022/05/15/azure-functions-isolated-middleware-apis.html
+// Middleware examples
 // https://github.com/Azure/azure-functions-dotnet-worker/tree/main/samples/CustomMiddleware
+// https://techiesweb.net/2022/05/15/azure-functions-isolated-middleware-apis
 
 IHost host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
@@ -20,6 +20,12 @@ static void configureServices(HostBuilderContext builderContext, IServiceCollect
         client.BaseAddress = new Uri("http://localhost:5000"));
 
     string storageConnString = builderContext.Configuration["AzureWebJobsStorage"];
+
+    // Azure .NET SDKs
+    // https://azure.github.io/azure-sdk/releases/latest/dotnet.html
+
+    // Example: https://kaylumah.nl/2022/02/21/working-with-azure-sdk-for-dotnet.html
+    // For DI container using the package: Microsoft.Extensions.Azure
 
     services.AddAzureClients(clients =>
     {
