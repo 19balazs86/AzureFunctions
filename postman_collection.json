@@ -2,9 +2,121 @@
 	"info": {
 		"_postman_id": "b98bc656-ac89-4d4d-916a-7b3fc58ec737",
 		"name": "AzureFunctions",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8316451"
 	},
 	"item": [
+		{
+			"name": "DurableEntity-Counter",
+			"item": [
+				{
+					"name": "Counter_Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/Counter/entityKey1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Counter",
+								"entityKey1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Counter_GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/Counters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Counters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Counter_Add",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/Counter/entityKey1/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Counter",
+								"entityKey1",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Counter_Client",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/CounterClient/entityKey1/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"CounterClient",
+								"entityKey1",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Counter_Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/Counter/entityKey1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"Counter",
+								"entityKey1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "PlaceOrder",
 			"request": {
@@ -133,112 +245,6 @@
 					"path": [
 						"api",
 						"Client_StartDurableHttp"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Counter_Get",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/api/Counter/entityKey1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"Counter",
-						"entityKey1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Counter_GetAll",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/api/Counters",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"Counters"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Counter_Add",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/api/Counter/entityKey1/10",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"Counter",
-						"entityKey1",
-						"10"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Counter_Client",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/api/CounterClient/entityKey1/10",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"CounterClient",
-						"entityKey1",
-						"10"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Counter_Delete",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:5000/api/Counter/entityKey1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"api",
-						"Counter",
-						"entityKey1"
 					]
 				}
 			},

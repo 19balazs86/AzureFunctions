@@ -1,12 +1,24 @@
 # Playing with Azure Functions
-This is a .NET application, experiment with various Azure Function features and provides a collection of useful links.
+- Experiment with various Azure Function features and provides a collection of useful links.
+- [2 Azure Function projects](#functions) **In-process** and **Isolated worker process**
 
 #### Resources
+- [Guide for Azure Functions in an **Isolated worker process**](https://learn.microsoft.com/en-us/azure/azure-functions/dotnet-isolated-process-guide) 📚
+  - [Guide for Durable Functions in isolated worker (migration)](https://learn.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-dotnet-isolated-overview) 📚
+  - [Azure Functions .NET Worker](https://github.com/Azure/azure-functions-dotnet-worker) 👤*Azure*
+  - [Durable Task .NET Client SDK](https://github.com/microsoft/durabletask-dotnet) 👤*Azure*
+  - [Migration to Isolated Durable Functions](https://markheath.net/post/migrating-to-isolated-durable-functions) 📓*Mark Heath*
+- [**Azure SDK** API reference](https://learn.microsoft.com/en-us/dotnet/api/overview/azure) 📚
 - [**Azurite emulator** for local Azure Storage development](https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite)
-- [Azure Functions documentation](https://learn.microsoft.com/en-us/azure/azure-functions) 📚
+- [Azure Functions documentation](https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview) 📚
   - [Dependency Injection](https://docs.microsoft.com/en-us/azure/azure-functions/functions-dotnet-dependency-injection)
   - [host.json reference](https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json), [host.json schema](http://json.schemastore.org/host) *(schemastore.org)*
 - [Azure Functions Fundamentals](https://app.pluralsight.com/library/courses/azure-functions-fundamentals) 📽️*3h40m - Pluralsight - Mark Heath*
+- [Durable Functions](https://learn.microsoft.com/en-ie/azure/azure-functions/durable/durable-functions-overview) 2.x 📚
+  - [Durable Functions versions](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-versions) 📚*overview, migration*
+  - [Consuming HTTP APIs](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-http-features#consuming-http-apis) 📚*Concept* | [Serverless HTTP With Durable Functions](https://blog.jeremylikness.com/blog/serverless-http-with-durable-functions) 📓*Jeremy Likness*
+  - [Entity functions = Durable Entities](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-entities) 📚*Concept*
+  - [Developers guide to durable entities in .NET](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-dotnet-entities) 📚*How-to guides*
 - Custom Function Binding
   - [Creating custom Function Binding](http://dontcodetired.com/blog/post/Creating-Custom-Azure-Functions-Bindings) 📓*DoNotCodeTired*
   - [Token authentication using custom Function binding](https://www.ben-morris.com/custom-token-authentication-in-azure-functions-using-bindings) 📓*Ben Morris*
@@ -14,11 +26,6 @@ This is a .NET application, experiment with various Azure Function features and 
 - [Blob Storage](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob) 📚
   - [Getting Blob Metadata](http://dontcodetired.com/blog/post/Getting-Blob-Metadata-When-Using-Azure-Functions-Blob-Storage-Triggers) 📓*DoNotCodeTired*
   - [Handling errors and poison blobs](http://dontcodetired.com/blog/post/Handling-Errors-and-Poison-Blobs-in-Azure-Functions-With-Azure-Blob-Storage-Triggers) 📓*DoNotCodeTired*
-- [Durable Functions](https://docs.microsoft.com/en-ie/azure/azure-functions/durable) 2.x 📚
-  - [Durable Functions versions](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-versions) 📚*overview, migration*
-  - [Consuming HTTP APIs](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-http-features#consuming-http-apis) 📚*Concept* | [Serverless HTTP With Durable Functions](https://blog.jeremylikness.com/blog/serverless-http-with-durable-functions) 📓*Jeremy Likness*
-  - [Entity functions = Durable Entities](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-entities) 📚*Concept*
-  - [Developers guide to durable entities in .NET](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-dotnet-entities) 📚*How-to guides*
 - [Durable Functions](https://docs.microsoft.com/en-ie/azure/azure-functions/durable) 1.x 📚
   - [Azure Durable Functions Fundamentals](https://app.pluralsight.com/library/courses/azure-durable-functions-fundamentals) *2h53m - Pluralsight - Mark Heath*
   - Durable Functions [series](http://dontcodetired.com/blog/?tag=durfuncseries) 📓*DoNotCodeTired*

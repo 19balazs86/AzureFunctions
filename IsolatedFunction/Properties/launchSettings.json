@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "RunMe-IsolatedFunction": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 5000",
+      "launchBrowser": false
+    }
+  }
+}
