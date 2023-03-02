@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 // Middleware examples
+// https://www.adamstorr.co.uk/blog/conditional-middleware-in-isolated-azure-functions
 // https://github.com/Azure/azure-functions-dotnet-worker/tree/main/samples/CustomMiddleware
 // https://techiesweb.net/2022/05/15/azure-functions-isolated-middleware-apis
 
