@@ -23,7 +23,8 @@
   - [Creating custom Function Binding](http://dontcodetired.com/blog/post/Creating-Custom-Azure-Functions-Bindings) 📓*DoNotCodeTired*
   - [Token authentication using custom Function binding](https://www.ben-morris.com/custom-token-authentication-in-azure-functions-using-bindings) 📓*Ben Morris*
   - [ON.NET show](https://youtu.be/vKrUn9qiUI8?t=60) 📽️*21m - Matías Quaranta*
-- [Blob Storage](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob) 📚
+- [Blob Storage bindings](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob) 📚
+  - [Azure Blob Storage](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction) 📚
   - [Getting Blob Metadata](http://dontcodetired.com/blog/post/Getting-Blob-Metadata-When-Using-Azure-Functions-Blob-Storage-Triggers) 📓*DoNotCodeTired*
   - [Handling errors and poison blobs](http://dontcodetired.com/blog/post/Handling-Errors-and-Poison-Blobs-in-Azure-Functions-With-Azure-Blob-Storage-Triggers) 📓*DoNotCodeTired*
 - [Durable Functions](https://docs.microsoft.com/en-ie/azure/azure-functions/durable) 1.x 📚
