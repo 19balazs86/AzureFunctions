@@ -40,7 +40,9 @@
   - [Call activity with retry](https://www.serverlessnotes.com/docs/retries-with-azure-durable-functions) 📓*ServerlessNotes*
   - [Advanced Serverless Workflows with Durable Functions](https://youtu.be/QvaPka0lmdU) 📽️*58m - Jeremy Likness*
   - [Building workflows with the Durable Task Framework](https://www.youtube.com/watch?v=11a4FMm5BHU) 📽️*29m - ON .NET Show*
-- [Testing Azure Functions](https://microsoft.github.io/AzureTipsAndTricks/blog/tip196.html) 📓*Azure Tips and Tricks*
+- Test
+  - [Integration testing with Testcontainers](https://www.tpeczek.com/2023/10/azure-functions-integration-testing.html) 📓*Tomasz Pęczek*
+  - [Testing Azure Functions](https://microsoft.github.io/AzureTipsAndTricks/blog/tip196.html) 📓*Azure Tips and Tricks*
 - Other
   - [Is Serverless really as cheap as everyone claims?](https://dev.to/azure/is-serverless-really-as-cheap-as-everyone-claims-4i9n) 📓*Burke Holland - dev.to*
   - [Links](https://github.com/19balazs86/AzureServiceBus): Processing messages/events in the given order with Azure Functions *(Jeff Hollan)*
