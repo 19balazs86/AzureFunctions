@@ -17,9 +17,30 @@ public static class Extensions
         return tableClient;
     }
 
+    public static async Task<HttpResponseData> CreateStringResponseAsync(
+        this HttpRequestData request,
+        string value,
+        HttpStatusCode statusCode = HttpStatusCode.OK)
+    {
+        HttpResponseData response = request.CreateResponse(statusCode);
+
+        await response.WriteStringAsync(value);
+
+        return response;
+    }
+
+    public static async Task<HttpResponseData> CreateJsonResponseAsync<TData>(this HttpRequestData request, TData data)
+    {
+        HttpResponseData response = request.CreateResponse();
+
+        await response.WriteAsJsonAsync(data);
+
+        return response;
+    }
+
     public static async Task<HttpRequestBody<T>> GetBody<T>(this HttpRequestData request) where T : class
     {
-        T value;
+        T? value;
 
         try
         {
@@ -31,7 +52,9 @@ public static class Extensions
         }
 
         if (value is null)
+        {
             return HttpRequestBody<T>.CreateInvalid("Request body can not be empty.");
+        }
 
         var validationResults = new List<ValidationResult>();
 

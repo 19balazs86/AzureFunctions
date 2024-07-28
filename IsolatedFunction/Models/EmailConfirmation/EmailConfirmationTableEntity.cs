@@ -3,7 +3,7 @@ using Azure.Data.Tables;
 
 namespace IsolatedFunction.Models.EmailConfirmation;
 
-public class EmailConfirmationTableEntity : ITableEntity
+public sealed class EmailConfirmationTableEntity : ITableEntity
 {
     public const string TableNameValue    = "EmailConfirmations";
     public const string PartitionKeyValue = "confirmation";
@@ -17,7 +17,9 @@ public class EmailConfirmationTableEntity : ITableEntity
     public DateTimeOffset? Timestamp { get; set ; }
     public ETag ETag { get; set; }
 
-    public EmailConfirmationTableEntity() { }
+#pragma warning disable CS8618 // Non-nullable field...
+    public EmailConfirmationTableEntity() { } // Need an empty constructor!
+#pragma warning restore CS8618 // Non-nullable field...
 
     public EmailConfirmationTableEntity(EmailConfirmationInfo confirmationInfo)
     {

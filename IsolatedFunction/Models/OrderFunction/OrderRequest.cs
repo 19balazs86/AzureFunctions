@@ -8,7 +8,7 @@ public sealed class OrderRequest
     public int CustomerId { get; set; }
 
     [Required(AllowEmptyStrings = false), StringLength(100, MinimumLength = 1)]
-    public string ProductName { get; set; }
+    public string ProductName { get; set; } = "";
 
     [Range(1, int.MaxValue)]
     public int Quantity { get; set; }

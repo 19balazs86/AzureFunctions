@@ -30,13 +30,11 @@ public sealed class EmailConfirmationHumanInteraction
     {
         // This process is intended to showcase the features of Durable Functions.
 
-        string email = HttpUtility.ParseQueryString(request.Url.Query)["email"];
+        string? email = HttpUtility.ParseQueryString(request.Url.Query)["email"];
 
         if (string.IsNullOrWhiteSpace(email))
         {
-            HttpResponseData response = request.CreateResponse(HttpStatusCode.BadRequest);
-            response.WriteString("Missing email field in the query.");
-            return response;
+            return await request.CreateStringResponseAsync("Missing email field in the query.", HttpStatusCode.BadRequest);
         }
 
         var input = new EmailConfirmationInput(email, request.Url);
@@ -118,7 +116,7 @@ public sealed class EmailConfirmationHumanInteraction
     {
         HttpResponseData response = request.CreateResponse(HttpStatusCode.BadRequest);
 
-        EmailConfirmationTableEntity tableEntity = await getEmailConfirmationTableEntity(id);
+        EmailConfirmationTableEntity? tableEntity = await getEmailConfirmationTableEntity(id);
 
         if (tableEntity is null)
         {
@@ -131,7 +129,7 @@ public sealed class EmailConfirmationHumanInteraction
             return response;
         }
 
-        string result = HttpUtility.ParseQueryString(request.Url.Query)["result"]; // This is just an extra parameter.
+        string? result = HttpUtility.ParseQueryString(request.Url.Query)["result"]; // This is just an extra parameter.
 
         // --> Send confirmation external event to this orchestration.
         await taskClient.RaiseEventAsync(tableEntity.OrchestrationId, _eventName, result);
@@ -147,10 +145,12 @@ public sealed class EmailConfirmationHumanInteraction
     public async Task Activity_SaveEmailConfirmationResult(
         [ActivityTrigger] EmailConfirmationInfo confirmationInfo)
     {
-        EmailConfirmationTableEntity tableEntity = await getEmailConfirmationTableEntity(confirmationInfo.Id);
+        EmailConfirmationTableEntity? tableEntity = await getEmailConfirmationTableEntity(confirmationInfo.Id);
 
         if (tableEntity is null)
+        {
             throw new NullReferenceException($"Missing email confirmation record.");
+        }
 
         tableEntity.Result = confirmationInfo.Result;
 
@@ -161,7 +161,7 @@ public sealed class EmailConfirmationHumanInteraction
         _logger.LogInformation("Result is saved with '{Value}'.", confirmationInfo.Result);
     }
 
-    private async Task<EmailConfirmationTableEntity> getEmailConfirmationTableEntity(string id)
+    private async Task<EmailConfirmationTableEntity?> getEmailConfirmationTableEntity(string id)
     {
         TableClient tableClient = await _tableServiceClient.GetTableClient_CreateIfNotExistsAsync(EmailConfirmationTableEntity.TableNameValue);
 

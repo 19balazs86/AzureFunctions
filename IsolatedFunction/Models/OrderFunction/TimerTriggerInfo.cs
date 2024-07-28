@@ -1,13 +1,13 @@
 ﻿namespace IsolatedFunction.Models.OrderFunction;
 
-public class TimerTriggerInfo
+public sealed class TimerTriggerInfo
 {
-    public ScheduleStatus ScheduleStatus { get; set; }
+    public ScheduleStatus? ScheduleStatus { get; set; }
 
     public bool IsPastDue { get; set; }
 }
 
-public class ScheduleStatus
+public sealed class ScheduleStatus
 {
     public DateTime Last { get; set; }
 

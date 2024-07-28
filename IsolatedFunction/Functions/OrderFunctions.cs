@@ -61,7 +61,7 @@ public sealed class OrderFunctions
             return response;
         }
 
-        Order order = requestBody.Value.ToOrder();
+        Order order = requestBody.Value!.ToOrder();
 
         _logger.LogInformation("Order is requested with id: {orderId}.", order.Id);
 

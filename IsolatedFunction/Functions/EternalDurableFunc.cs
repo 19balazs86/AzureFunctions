@@ -45,5 +45,7 @@ public sealed class EternalDurableFunc
 
     [Function(nameof(Activity_EternalFunc))]
     public void Activity_EternalFunc([ActivityTrigger] int counter)
-        => _logger.LogInformation("Counter: {Counter}.", counter);
+    {
+        _logger.LogInformation("Counter: {Counter}.", counter);
+    }
 }

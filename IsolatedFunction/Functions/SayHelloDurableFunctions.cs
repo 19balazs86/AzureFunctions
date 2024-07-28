@@ -40,15 +40,12 @@ public sealed class SayHelloDurableFunctions
 
         var tasks = new List<Task<string>>();
 
-        //foreach (string city in request.CityNames)
-        //  tasks.Add(context.CallActivityAsync<string>(nameof(SayHello_Activity), city));
-
         TaskOptions options = TaskOptions.FromRetryPolicy(new RetryPolicy(3, TimeSpan.FromSeconds(2)));
 
         foreach (string city in request.CityNames)
             tasks.Add(context.CallActivityAsync<string>(nameof(Activity_SayHello), city, options));
 
-        IEnumerable<string> results = Enumerable.Empty<string>();
+        IEnumerable<string> results = [];
 
         try
         {
@@ -83,5 +80,5 @@ public sealed class SayHelloDurableFunctions
 
 public sealed class SayHelloRequest
 {
-    public IEnumerable<string> CityNames { get; set; }
+    public IEnumerable<string> CityNames { get; set; } = [];
 }

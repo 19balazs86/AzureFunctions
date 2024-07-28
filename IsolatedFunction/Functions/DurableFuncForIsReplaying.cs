@@ -20,7 +20,7 @@ public sealed class DurableFuncForIsReplaying
 
         string[] cities = await context.CallActivityAsync<string[]>(nameof(Activity_GetCities));
 
-        IEnumerable<string> outputs = Enumerable.Empty<string>();
+        IEnumerable<string> outputs = [];
 
         // Note: The value of IsReplaying will become false when the CallActivityAsync is invoked and the activity commences.
         if (!context.IsReplaying)
@@ -49,6 +49,6 @@ public sealed class DurableFuncForIsReplaying
     {
         _logger.LogInformation("Here you can have a DB call to retrieve data for the Orchestrator.");
 
-        return new string[] { "Tokyo", "Seattle", "London" };
+        return ["Tokyo", "Seattle", "London"];
     }
 }
