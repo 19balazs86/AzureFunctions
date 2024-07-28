@@ -67,7 +67,7 @@ public sealed class OrderFunctions
 
         string fileName = $"{order.Id}.json";
 
-        // The Binder feature, which allows for dynamic set up of the blob name, is not available for Isolcated function.
+        // The Binder feature, which allows for dynamic set up of the blob name, is not available for Isolated function.
         // https://learn.microsoft.com/en-us/dotnet/api/overview/azure/storage.blobs-readme
         BlobContainerClient blobContainerClient = _blobServiceClient.GetBlobContainerClient("orders");
 
