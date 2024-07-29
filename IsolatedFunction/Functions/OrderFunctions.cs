@@ -7,6 +7,10 @@ namespace IsolatedFunction.Functions;
 
 public sealed class OrderFunctions
 {
+    public const string BlobName  = "orders";
+    public const string QueueName = "orders";
+    public const string TableName = "orders";
+
     public const string PlaceOrderClientName = "PlaceOrderApi";
 
     private readonly ILogger _logger;
@@ -69,7 +73,7 @@ public sealed class OrderFunctions
 
         // The Binder feature, which allows for dynamic set up of the blob name, is not available for Isolated function.
         // https://learn.microsoft.com/en-us/dotnet/api/overview/azure/storage.blobs-readme
-        BlobContainerClient blobContainerClient = _blobServiceClient.GetBlobContainerClient("orders");
+        BlobContainerClient blobContainerClient = _blobServiceClient.GetBlobContainerClient(BlobName);
 
         await blobContainerClient.CreateIfNotExistsAsync();
 
@@ -89,14 +93,14 @@ public sealed class OrderFunctions
     /// BlobTrigger -> Queue.
     /// </summary>
     [Function(nameof(BlobFunction))]
-    [QueueOutput("orders")]
+    [QueueOutput(QueueName)]
     public async Task<Order> BlobFunction(
         [BlobTrigger("orders/{fileName}")] Order order,
         string fileName)
     {
         // No need to delete the file. If the it has been processed but hasn't been deleted, it won't be processed again in the future.
         // The processed messages information can be found in the azure-webjobs-hosts/blobreceipts directory of the blob container.
-        BlobContainerClient blobContainerClient = _blobServiceClient.GetBlobContainerClient("orders");
+        BlobContainerClient blobContainerClient = _blobServiceClient.GetBlobContainerClient(BlobName);
 
         await blobContainerClient.DeleteBlobAsync(fileName);
 
@@ -110,12 +114,12 @@ public sealed class OrderFunctions
     /// </summary>
     [Function(nameof(QueueFunction))]
     public async Task QueueFunction(
-        [QueueTrigger("orders")] Order order)
+        [QueueTrigger(QueueName)] Order order)
     {
         _logger.LogInformation("Queue trigger function processed the order({OrderId}).", order.Id);
 
         // https://learn.microsoft.com/en-us/dotnet/api/overview/azure/data.tables-readme
-        TableClient tableClient = await _tableServiceClient.GetTableClient_CreateIfNotExistsAsync("orders");
+        TableClient tableClient = _tableServiceClient.GetTableClient(TableName);
 
         _ = await tableClient.AddEntityAsync(order.ToTableEntity());
     }

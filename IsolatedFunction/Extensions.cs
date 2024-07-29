@@ -1,22 +1,10 @@
-﻿using Azure.Data.Tables;
-using IsolatedFunction.Models.OrderFunction;
+﻿using IsolatedFunction.Models.OrderFunction;
 using System.ComponentModel.DataAnnotations;
 
 namespace IsolatedFunction;
 
 public static class Extensions
 {
-    public static async Task<TableClient> GetTableClient_CreateIfNotExistsAsync(this TableServiceClient tableServiceClient, string tableName)
-    {
-        ArgumentException.ThrowIfNullOrEmpty(tableName, nameof(tableName));
-
-        TableClient tableClient = tableServiceClient.GetTableClient(tableName);
-
-        await tableClient.CreateIfNotExistsAsync();
-
-        return tableClient;
-    }
-
     public static async Task<HttpResponseData> CreateStringResponseAsync(
         this HttpRequestData request,
         string value,

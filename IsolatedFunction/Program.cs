@@ -1,4 +1,5 @@
 using IsolatedFunction.Functions;
+using IsolatedFunction.Infrastructure;
 using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +25,8 @@ public static class Program
 
     private static void configureServices(HostBuilderContext builderContext, IServiceCollection services)
     {
+        services.AddHostedService<InfrastructureService>();
+
         services.AddHttpClient(OrderFunctions.PlaceOrderClientName, client => client.BaseAddress = new Uri("http://localhost:5000"));
 
         string storageConnString = builderContext.Configuration["AzureWebJobsStorage"];
@@ -37,6 +40,7 @@ public static class Program
         services.AddAzureClients(clients =>
         {
             clients.AddBlobServiceClient(storageConnString);
+            clients.AddQueueServiceClient(storageConnString);
             clients.AddTableServiceClient(storageConnString);
         });
     }

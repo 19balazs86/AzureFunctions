@@ -101,7 +101,7 @@ public sealed class EmailConfirmationHumanInteraction
             Query  = "result=Approved"
         };
 
-        TableClient tableClient = await _tableServiceClient.GetTableClient_CreateIfNotExistsAsync(EmailConfirmationTableEntity.TableNameValue);
+        TableClient tableClient = _tableServiceClient.GetTableClient(EmailConfirmationTableEntity.TableNameValue);
 
         _ = await tableClient.AddEntityAsync(new EmailConfirmationTableEntity(confirmationInfo));
 
@@ -163,7 +163,7 @@ public sealed class EmailConfirmationHumanInteraction
 
     private async Task<EmailConfirmationTableEntity?> getEmailConfirmationTableEntity(string id)
     {
-        TableClient tableClient = await _tableServiceClient.GetTableClient_CreateIfNotExistsAsync(EmailConfirmationTableEntity.TableNameValue);
+        TableClient tableClient = _tableServiceClient.GetTableClient(EmailConfirmationTableEntity.TableNameValue);
 
         NullableResponse<EmailConfirmationTableEntity> nullableTableEntity = await tableClient.GetEntityIfExistsAsync<EmailConfirmationTableEntity>(
             EmailConfirmationTableEntity.PartitionKeyValue, id);
