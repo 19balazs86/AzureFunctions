@@ -8,7 +8,6 @@
   - [Bindings](https://learn.microsoft.com/en-us/azure/azure-functions/dotnet-isolated-process-guide?tabs=windows#bindings) 📚
   - [host.json reference](https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json) 📚
   - [Migration to Isolated Durable Functions](https://markheath.net/post/migrating-to-isolated-durable-functions) 📓*Mark Heath*
-
 - [Azure Functions .NET Worker](https://github.com/Azure/azure-functions-dotnet-worker) 👤*Azure*
 - [Durable Task .NET Client SDK](https://github.com/microsoft/durabletask-dotnet) 👤*Azure*
 - [**Azure SDK** API reference](https://learn.microsoft.com/en-us/dotnet/api/overview/azure) 📚
@@ -18,7 +17,6 @@
   - [Table of APIs](https://learn.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-dotnet-isolated-overview#public-api-changes) (DurableTaskClient, TaskEntityContext...)📚
   - [Entity functions = **Durable Entities**](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-entities) 📚*Concept*
     - [Developers guide to durable entities in .NET](https://docs.microsoft.com/en-us/azure/azure-functions/durable/durable-functions-dotnet-entities) 📚*How-to guides*
-
 - Custom Function Binding
   - [Creating custom Function Binding](http://dontcodetired.com/blog/post/Creating-Custom-Azure-Functions-Bindings) 📓*DoNotCodeTired*
   - [Token authentication using custom Function binding](https://www.ben-morris.com/custom-token-authentication-in-azure-functions-using-bindings) 📓*Ben Morris*
