@@ -7,7 +7,7 @@ Experiment with various Azure Function features with 2 types of projects: **In-p
   - [**Guide for Isolated** Azure Functions](https://learn.microsoft.com/en-us/azure/azure-functions/dotnet-isolated-process-guide) 📚
   - [Bindings](https://learn.microsoft.com/en-us/azure/azure-functions/dotnet-isolated-process-guide?tabs=windows#bindings) 📚
   - [host.json reference](https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json) 📚
-  - [Migration to Isolated Durable Functions](https://markheath.net/post/migrating-to-isolated-durable-functions) 📓*Mark Heath*
+- [Best practices for performance, reliability and security](https://build5nines.com/azure-functions-best-practices-for-performance-reliability-and-security) 📓*Build5Nines*
 - [Azure Functions .NET Worker](https://github.com/Azure/azure-functions-dotnet-worker) 👤*Azure*
 - [Durable Task .NET Client SDK](https://github.com/microsoft/durabletask-dotnet) 👤*Azure*
 - [**Azure SDK** API reference](https://learn.microsoft.com/en-us/dotnet/api/overview/azure) 📚
