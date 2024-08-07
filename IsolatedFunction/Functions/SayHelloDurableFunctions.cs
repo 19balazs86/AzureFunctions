@@ -38,14 +38,16 @@ public sealed class SayHelloDurableFunctions
         // context.CurrentUtcDateTime
         // context.NewGuid()
 
-        var tasks = new List<Task<string>>();
+        List<Task<string>> tasks = [];
 
         TaskOptions options = TaskOptions.FromRetryPolicy(new RetryPolicy(3, TimeSpan.FromSeconds(2)));
 
         foreach (string city in request.CityNames)
+        {
             tasks.Add(context.CallActivityAsync<string>(nameof(Activity_SayHello), city, options));
+        }
 
-        IEnumerable<string> results = [];
+        string[] results = [];
 
         try
         {
@@ -53,15 +55,13 @@ public sealed class SayHelloDurableFunctions
         }
         catch (Exception ex)
         {
-            if (!context.IsReplaying)
-                _logger.LogError(ex, "Error during to call say hello.");
+            _logger.LogError(ex, "Error during to call say hello.");
         }
 
-        // --> CallSubOrchestrator
-        if (!context.IsReplaying)
-            _ = await context.CallSubOrchestratorAsync<IEnumerable<string>>(nameof(DurableFuncForIsReplaying.Orchestrator_DurableFuncForIsReplaying));
+        // --> CallSubOrchestrator. No need to check the context.IsReplaying, it is like CallActivity
+        string[] subCities = await context.CallSubOrchestratorAsync<string[]>(nameof(DurableFuncForIsReplaying.Orchestrator_DurableFuncForIsReplaying));
 
-        return results;
+        return [..results, ..subCities];
     }
 
     [Function(nameof(Activity_SayHello))]
@@ -72,7 +72,7 @@ public sealed class SayHelloDurableFunctions
 
         _logger.LogInformation("Wait and saying hello to '{City}'.", city);
 
-        await Task.Delay(3000);
+        await Task.Delay(Random.Shared.Next(1_500, 3_000));
 
         return $"Hello {city}!";
     }

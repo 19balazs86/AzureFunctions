@@ -12,28 +12,25 @@ public sealed class DurableFuncForIsReplaying
     }
 
     [Function(nameof(Orchestrator_DurableFuncForIsReplaying))]
-    public async Task<IEnumerable<string>> Orchestrator_DurableFuncForIsReplaying(
+    public static async Task<string[]> Orchestrator_DurableFuncForIsReplaying(
         [OrchestrationTrigger] TaskOrchestrationContext context)
     {
-        if (!context.IsReplaying)
-            _logger.LogInformation("Retrieve data from the DB.");
+        ILogger replaySafeLogger = context.CreateReplaySafeLogger<DurableFuncForIsReplaying>();
+
+        replaySafeLogger.LogInformation("Retrieve data from the DB."); // if (!context.IsReplaying) _logger.LogInformation("Retrieve data from the DB.");
 
         string[] cities = await context.CallActivityAsync<string[]>(nameof(Activity_GetCities));
 
-        IEnumerable<string> outputs = [];
+        replaySafeLogger.LogInformation("Start to say hello to the cities.");
 
-        // Note: The value of IsReplaying will become false when the CallActivityAsync is invoked and the activity commences.
-        if (!context.IsReplaying)
-            _logger.LogInformation("Start to say hello to the cities.");
-
-        var tasks = new List<Task<string>>();
+        List<Task<string>> tasks = [];
 
         foreach (string city in cities)
+        {
             tasks.Add(context.CallActivityAsync<string>(nameof(Activity_DurableFuncForIsReplaying), city));
+        }
 
-        outputs = await Task.WhenAll(tasks);
-
-        return outputs;
+        return await Task.WhenAll(tasks);
     }
 
     [Function(nameof(Activity_DurableFuncForIsReplaying))]
@@ -49,6 +46,6 @@ public sealed class DurableFuncForIsReplaying
     {
         _logger.LogInformation("Here you can have a DB call to retrieve data for the Orchestrator.");
 
-        return ["Tokyo", "Seattle", "London"];
+        return ["Sub-Tokyo", "Sub-Seattle", "Sub-London"];
     }
 }
