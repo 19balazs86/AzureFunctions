@@ -5,12 +5,11 @@ Experiment with various Azure Function features with 2 types of projects: **In-p
 
 - [Azure Functions documentation](https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview) 📚
   - [**Guide for Isolated** Azure Functions](https://learn.microsoft.com/en-us/azure/azure-functions/dotnet-isolated-process-guide) 📚
-  - [Bindings](https://learn.microsoft.com/en-us/azure/azure-functions/dotnet-isolated-process-guide?tabs=windows#bindings) 📚
+  - [Bindings](https://learn.microsoft.com/en-us/azure/azure-functions/functions-triggers-bindings#supported-bindings) 📚
   - [host.json reference](https://docs.microsoft.com/en-us/azure/azure-functions/functions-host-json) 📚
 - [Best practices for performance, reliability and security](https://build5nines.com/azure-functions-best-practices-for-performance-reliability-and-security) 📓*Build5Nines*
 - [Azure Functions .NET Worker](https://github.com/Azure/azure-functions-dotnet-worker) 👤*Azure*
 - [Durable Task .NET Client SDK](https://github.com/microsoft/durabletask-dotnet) 👤*Azure*
-- [**Azure SDK** API reference](https://learn.microsoft.com/en-us/dotnet/api/overview/azure) 📚
 - [**Azurite emulator** for local Azure Storage development](https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite)
 - [Azure Functions Fundamentals](https://app.pluralsight.com/library/courses/azure-functions-fundamentals) 📽️*3h40m - Pluralsight - Mark Heath*
 - [Durable Functions](https://learn.microsoft.com/en-ie/azure/azure-functions/durable/durable-functions-overview) 📚
